@@ -319,6 +319,15 @@
 
     <!-- Data Injection Script to keep HTML clean and manageable -->
     <script>
+        // Utility to safely escape HTML entities in code snippets to prevent browser parsing errors
+        const escapeHTML = (str) => str.replace(/[&<>'"]/g, tag => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+        }[tag] || tag));
+
         // Data sources
         const mcqs = [
             { q: "Which keyword is used to create an object?", options: ["object", "class", "new", "create"] },
@@ -415,8 +424,8 @@
             // Q20 is handled statically in HTML due to table
         ];
 
-        // Format code inline markers
-        const formatInlineCode = (text) => text.replace(/`([^`]+)`/g, '<code class="bg-slate-200 text-rose-600 px-1 rounded">$1</code>');
+        // Format code inline markers safely
+        const formatInlineCode = (text) => text.replace(/`([^`]+)`/g, (match, p1) => `<code class="bg-slate-200 text-rose-600 px-1 rounded">${escapeHTML(p1)}</code>`);
 
         // Render Functions
         document.getElementById('mcq-container').innerHTML = mcqs.map((q, i) => `
@@ -426,14 +435,14 @@
                     <span>${formatInlineCode(q.q)}</span>
                 </p>
                 <ul class="space-y-2 text-sm text-slate-600 pl-8 list-[lower-alpha]">
-                    ${q.options.map(opt => `<li><span class="bg-slate-50 px-2 py-1 rounded border border-slate-100 block">${opt}</span></li>`).join('')}
+                    ${q.options.map(opt => `<li><span class="bg-slate-50 px-2 py-1 rounded border border-slate-100 block">${escapeHTML(opt)}</span></li>`).join('')}
                 </ul>
             </div>
         `).join('');
 
         document.getElementById('definitions-container').innerHTML = definitions.map(def => `
             <span class="bg-purple-50 border border-purple-200 text-purple-800 px-4 py-2 rounded-xl font-medium shadow-sm flex items-center gap-2">
-                <i data-lucide="hash" class="w-4 h-4 opacity-50"></i> ${def}
+                <i data-lucide="hash" class="w-4 h-4 opacity-50"></i> ${escapeHTML(def)}
             </span>
         `).join('');
 
@@ -451,7 +460,7 @@
                     <span class="text-${themeColor}-400 text-xs font-bold mb-3 flex items-center gap-1">
                         <i data-lucide="${icon}" class="w-3 h-3"></i> Q${i+1}
                     </span>
-                    <pre class="text-sm font-mono text-slate-300 overflow-x-auto pb-2"><code>${code}</code></pre>
+                    <pre class="text-sm font-mono text-slate-300 overflow-x-auto pb-2"><code>${escapeHTML(code)}</code></pre>
                 </div>
             `).join('');
         };
@@ -465,7 +474,7 @@
                 <div class="bg-indigo-50 text-indigo-600 w-10 h-10 flex items-center justify-center rounded-xl shrink-0 font-bold">
                     ${i+1}
                 </div>
-                <p class="text-slate-700 font-medium pt-2">${prog}</p>
+                <p class="text-slate-700 font-medium pt-2">${escapeHTML(prog)}</p>
             </div>
         `).join('');
 
