@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICSE Class IX Computer Applications Revision</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.4; }
+            80% { opacity: 0.4; }
+            100% { transform: translateY(-100vh) scale(1.2) rotate(45deg); opacity: 0; }
+        }
+        .study-particle {
+            position: absolute;
+            bottom: -50px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            animation: floatUp 12s infinite linear;
+        }
+        .study-particle:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 15s; }
+        .study-particle:nth-child(2) { width: 25px; height: 25px; left: 25%; animation-duration: 10s; animation-delay: 2s; }
+        .study-particle:nth-child(3) { width: 60px; height: 60px; left: 45%; animation-duration: 18s; animation-delay: 1s; border-radius: 50%;}
+        .study-particle:nth-child(4) { width: 30px; height: 30px; left: 65%; animation-duration: 12s; animation-delay: 5s; }
+        .study-particle:nth-child(5) { width: 45px; height: 45px; left: 80%; animation-duration: 14s; animation-delay: 3s; }
+        .study-particle:nth-child(6) { width: 20px; height: 20px; left: 90%; animation-duration: 9s; animation-delay: 0s; border-radius: 50%;}
+        
+        /* Custom Scrollbar for code blocks */
+        pre::-webkit-scrollbar { height: 6px; }
+        pre::-webkit-scrollbar-track { background: transparent; }
+        pre::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800">
+
+    <!-- Hero Section -->
+    <header class="relative bg-gradient-to-br from-teal-900 via-emerald-800 to-teal-700 text-white overflow-hidden py-24 px-6 border-b-4 border-amber-400 shadow-lg">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="study-particle"></div>
+            <div class="study-particle"></div>
+            <div class="study-particle"></div>
+            <div class="study-particle"></div>
+            <div class="study-particle"></div>
+            <div class="study-particle"></div>
+        </div>
+        
+        <div class="max-w-5xl mx-auto relative z-10 text-center space-y-6">
+            <div class="inline-flex items-center justify-center p-4 bg-white/10 rounded-2xl backdrop-blur-md mb-2 shadow-[0_0_30px_rgba(52,211,153,0.3)] border border-white/20">
+                <i data-lucide="graduation-cap" class="w-12 h-12 text-amber-300"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                ICSE Class IX <br/><span class="text-emerald-300">Computer Applications</span>
+            </h1>
+            <p class="text-xl md:text-3xl text-amber-300 font-bold tracking-wide">
+                FORMATIVE ASSESSMENT – I (2026)
+            </p>
+            <p class="text-lg text-emerald-100 font-medium max-w-2xl mx-auto pt-4 border-t border-emerald-600/50">
+                Most Important Revision Questions & Practice Set
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-16">
+
+        <!-- Syllabus Info Box -->
+        <section class="bg-white rounded-3xl p-8 shadow-sm border border-emerald-100 grid md:grid-cols-2 gap-8 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 opacity-5 pointer-events-none">
+                <i data-lucide="book-open" class="w-64 h-64 text-emerald-500"></i>
+            </div>
+            <div class="relative z-10">
+                <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="info" class="text-blue-500"></i> Prepared based on:
+                </h3>
+                <ul class="space-y-3 text-slate-600 font-medium">
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 shrink-0"></i> ICSE Class IX Computer Applications syllabus</li>
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 shrink-0"></i> Previous school FA-1 papers</li>
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 shrink-0"></i> Common BlueJ practice questions</li>
+                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 shrink-0"></i> Frequently repeated ICSE question patterns</li>
+                </ul>
+            </div>
+            <div class="relative z-10 bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
+                <h3 class="text-lg font-bold text-emerald-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="layers" class="text-emerald-600"></i> Topics Covered
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Class & Objects</span>
+                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Values & Data Types</span>
+                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Operators</span>
+                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Intro to Java</span>
+                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Scanner Input</span>
+                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Math Library</span>
+                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Conditional Statements</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION A HEADER -->
+        <div class="text-center py-8">
+            <span class="text-emerald-600 font-bold tracking-widest uppercase text-sm border-2 border-emerald-200 px-4 py-1 rounded-full bg-emerald-50">Theory & Logic</span>
+            <h2 class="text-4xl font-extrabold text-slate-900 mt-4">SECTION A</h2>
+            <div class="w-24 h-1.5 bg-amber-400 mx-auto rounded-full mt-4"></div>
+        </div>
+
+        <!-- Part A: MCQs -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
+                <div class="bg-blue-100 text-blue-600 p-2 rounded-xl"><i data-lucide="list-checks" class="w-6 h-6"></i></div>
+                <h3 class="text-2xl font-bold text-slate-800">Part A – Most Important MCQs (25 Marks)</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="mcq-container">
+                <!-- Rendered via JS to keep HTML clean -->
+            </div>
+        </section>
+
+        <!-- Part B: Definitions -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
+                <div class="bg-purple-100 text-purple-600 p-2 rounded-xl"><i data-lucide="book-open-check" class="w-6 h-6"></i></div>
+                <h3 class="text-2xl font-bold text-slate-800">Part B – Definitions (20 Marks)</h3>
+            </div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
+                <p class="text-slate-600 mb-6 font-medium">Define the following terms clearly with examples where applicable:</p>
+                <div class="flex flex-wrap gap-3" id="definitions-container">
+                    <!-- Rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Part C: Short Answers -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
+                <div class="bg-amber-100 text-amber-600 p-2 rounded-xl"><i data-lucide="message-square-text" class="w-6 h-6"></i></div>
+                <h3 class="text-2xl font-bold text-slate-800">Part C – Very Important Short Answer Questions (20 Marks)</h3>
+            </div>
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200">
+                <ul class="space-y-4 text-slate-700 font-medium" id="saq-container">
+                    <!-- Rendered via JS -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Part D: Predict the Output -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
+                <div class="bg-slate-800 text-emerald-400 p-2 rounded-xl"><i data-lucide="terminal" class="w-6 h-6"></i></div>
+                <h3 class="text-2xl font-bold text-slate-800">Part D – Predict the Output (20 Marks)</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="predict-container">
+                <!-- Rendered via JS -->
+            </div>
+        </section>
+
+        <!-- Part E: Evaluate Expressions -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
+                <div class="bg-rose-100 text-rose-600 p-2 rounded-xl"><i data-lucide="calculator" class="w-6 h-6"></i></div>
+                <h3 class="text-2xl font-bold text-slate-800">Part E – Evaluate the Expressions (20 Marks)</h3>
+            </div>
+            <p class="text-slate-600 font-medium px-2">Find the final values of the variables after executing the expressions.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4" id="evaluate-container">
+                <!-- Rendered via JS -->
+            </div>
+        </section>
+
+        <!-- Part F: Find the Errors -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
+                <div class="bg-red-100 text-red-600 p-2 rounded-xl"><i data-lucide="bug" class="w-6 h-6"></i></div>
+                <h3 class="text-2xl font-bold text-slate-800">Part F – Find the Errors (20 Marks)</h3>
+            </div>
+            <p class="text-slate-600 font-medium px-2">Identify and correct the syntax or logical errors in the following statements.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="errors-container">
+                <!-- Rendered via JS -->
+            </div>
+        </section>
+
+        <!-- SECTION B HEADER -->
+        <div class="text-center py-16">
+            <span class="text-blue-600 font-bold tracking-widest uppercase text-sm border-2 border-blue-200 px-4 py-1 rounded-full bg-blue-50">Application & Logic</span>
+            <h2 class="text-4xl font-extrabold text-slate-900 mt-4">SECTION B</h2>
+            <div class="w-24 h-1.5 bg-blue-500 mx-auto rounded-full mt-4"></div>
+        </div>
+
+        <!-- Programming Questions -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
+                <div class="bg-indigo-100 text-indigo-600 p-2 rounded-xl"><i data-lucide="code-2" class="w-6 h-6"></i></div>
+                <h3 class="text-2xl font-bold text-slate-800">Most Important Programming Questions (20 Marks)</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-4" id="programs-container">
+                <!-- Rendered via JS -->
+            </div>
+
+            <!-- Special Table for Q20 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-indigo-200 mt-6 relative overflow-hidden">
+                <div class="absolute right-0 top-0 w-2 h-full bg-indigo-500"></div>
+                <span class="text-indigo-600 font-bold text-sm mb-2 block">Question 20 (Special Focus)</span>
+                <p class="text-slate-800 font-medium mb-4">Accept the Marks of English, Maths and Science and allot the stream based on the following criteria:</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse rounded-lg overflow-hidden shadow-sm">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700">
+                                <th class="border border-slate-200 p-3 font-bold">Condition</th>
+                                <th class="border border-slate-200 p-3 font-bold">Stream</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white text-slate-600">
+                            <tr>
+                                <td class="border border-slate-200 p-3">All ≥ 85</td>
+                                <td class="border border-slate-200 p-3 font-bold text-indigo-700">Pure Science</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-slate-200 p-3">English & Science ≥ 85, Maths ≥ 70</td>
+                                <td class="border border-slate-200 p-3 font-bold text-emerald-700">Bio Science</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-slate-200 p-3">All ≥ 60</td>
+                                <td class="border border-slate-200 p-3 font-bold text-amber-700">Commerce</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-slate-200 p-3">Otherwise</td>
+                                <td class="border border-slate-200 p-3 font-bold text-rose-700">Arts</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Revision Checklist -->
+        <section class="mt-16">
+            <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl p-8 md:p-10 shadow-md border-2 border-amber-200 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10">
+                    <i data-lucide="target" class="w-64 h-64 text-amber-600"></i>
+                </div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="star" class="w-8 h-8 text-amber-500 fill-amber-500"></i>
+                        <h2 class="text-3xl font-extrabold text-amber-950">Final Revision Checklist</h2>
+                    </div>
+                    
+                    <p class="text-amber-800 text-lg mb-6 font-medium">These topics have the highest likelihood of appearing in an ICSE Class IX FA-1 exam. Make sure you can confidently write code for all of them!</p>
+                    
+                    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-8">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Scanner input</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Data types</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Arithmetic, Relational & Logical ops</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Increment & Decrement ops</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Expression evaluation</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Math functions (max, min, abs, etc.)</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Output prediction</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Error correction</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700"><code class="bg-amber-100 px-1 rounded">if...else</code> & Nested <code class="bg-amber-100 px-1 rounded">if</code></span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700"><code class="bg-amber-100 px-1 rounded">switch</code> statement</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Discount, GST, Profit/Loss</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
+                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Rectangle, Circle, Temp conversions</span>
+                        </label>
+                    </div>
+                    
+                    <div class="mt-8 text-center">
+                        <p class="inline-block bg-white text-amber-700 font-bold px-6 py-3 rounded-xl shadow-sm border border-amber-200">
+                            Best of Luck for your Exams! 🚀
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 text-center py-8 text-sm mt-12 border-t-4 border-emerald-500">
+        <p>📚 ICSE Class IX Computer Applications – Study Materials</p>
+    </footer>
+
+    <!-- Data Injection Script to keep HTML clean and manageable -->
+    <script>
+        // Data sources
+        const mcqs = [
+            { q: "Which keyword is used to create an object?", options: ["object", "class", "new", "create"] },
+            { q: "Which package contains the Scanner class?", options: ["java.io", "java.math", "java.util", "java.lang"] },
+            { q: "Which method accepts an integer from the keyboard?", options: ["next()", "nextLine()", "nextInt()", "input()"] },
+            { q: "Which of the following is NOT a primitive data type?", options: ["int", "boolean", "String", "char"] },
+            { q: "Which data type stores decimal values?", options: ["int", "double", "char", "boolean"] },
+            { q: "Which operator gives the remainder?", options: ["/", "%", "*", "+"] },
+            { q: "Which operator is Logical AND?", options: ["&", "&&", "||", "!"] },
+            { q: "Which operator is Logical OR?", options: ["&&", "||", "%", "="] },
+            { q: "Which Math function returns the larger number?", options: ["Math.min()", "Math.max()", "Math.abs()", "Math.pow()"] },
+            { q: "Math.abs(-24) returns", options: ["-24", "24", "0", "Error"] },
+            { q: "Math.sqrt(225) returns", options: ["15", "25", "225", "14"] },
+            { q: "Which statement is used for multiple branching?", options: ["if", "switch", "while", "do"] },
+            { q: "Which keyword prevents fall-through in switch?", options: ["stop", "break", "end", "continue"] },
+            { q: "Which operator is used for assignment?", options: ["==", "=", "+=", "!="] },
+            { q: "The value of `10 % 3` is", options: ["3", "1", "0", "10"] },
+            { q: "Which of the following is a relational operator?", options: ["&&", "||", ">=", "%"] },
+            { q: "Which keyword begins a class definition?", options: ["public", "class", "object", "new"] },
+            { q: "Java is a ______ language.", options: ["Machine", "High-level", "Binary", "Assembly"] },
+            { q: "Which IDE is prescribed in ICSE schools?", options: ["Eclipse", "NetBeans", "BlueJ", "VS Code"] },
+            { q: "Java is ______ sensitive.", options: ["Number", "Case", "Error", "Operator"] },
+            { q: "Which operator has the highest precedence?", options: ["+", "*", "%", "="] },
+            { q: "Which method reads a decimal number?", options: ["nextDouble()", "nextInt()", "next()", "read()"] },
+            { q: "Which operator increments the value by 1?", options: ["--", "++", "+=", "=="] },
+            { q: "Math.floor(8.9) returns", options: ["9", "8", "8.9", "Error"] },
+            { q: "Math.ceil(8.2) returns", options: ["8", "9", "8.2", "Error"] }
+        ];
+
+        const definitions = [
+            "Java", "BlueJ", "Class", "Object", "Variable", "Identifier", "Data Type", "Primitive Data Type", 
+            "Scanner Class", "Package", "Operator", "Arithmetic Operator", "Relational Operator", "Logical Operator", 
+            "Assignment Operator", "Mathematical Library Function", "Conditional Statement", "Syntax Error", 
+            "Runtime Error", "Logical Error"
+        ];
+
+        const shortAnswers = [
+            "Differentiate between Class and Object.", "Differentiate between int and double.", "Differentiate between = and ==.",
+            "Differentiate between if and switch.", "State four features of Java.", "Write four rules for naming identifiers.",
+            "Why is Scanner class used?", "What is the purpose of import statement?", "Explain Math.abs() with an example.",
+            "Explain Math.max() with an example.", "Explain Math.min().", "Explain Math.pow().", "Explain Math.sqrt().",
+            "What is operator precedence?", "What is type casting?", "Name four arithmetic operators.", "Name four relational operators.",
+            "What is the purpose of break in switch?", "Why is Java called platform independent?", "State the difference between compile-time error and runtime error."
+        ];
+
+        const predictOutputs = [
+            `System.out.println("Welcome");\nSystem.out.print("Class ");\nSystem.out.print("IX");`,
+            `System.out.println(Math.max(24,56));`,
+            `System.out.println(Math.min(45,12));`,
+            `System.out.println(Math.abs(-80));`,
+            `System.out.println(Math.sqrt(144));`,
+            `System.out.println(Math.pow(3,2));`,
+            `int x=5;\nSystem.out.println(++x);`,
+            `int x=5;\nSystem.out.println(x++);\nSystem.out.println(x);`,
+            `int a=10;\nSystem.out.println(a+=5);`,
+            `System.out.println(18%5);`,
+            `System.out.println(Math.ceil(4.2));`,
+            `System.out.println(Math.floor(4.8));`,
+            `System.out.println(Math.max(-5,-2));`,
+            `System.out.println(Math.min(-7,9));`,
+            `int a=3,b=4;\nSystem.out.println(a+b);`,
+            `System.out.println(10/3);`,
+            `System.out.println(10.0/3);`,
+            `boolean x=true;\nSystem.out.println(x);`,
+            `System.out.println(Math.abs(-99));`,
+            `System.out.println(Math.pow(2,5));`
+        ];
+
+        const evaluateExpressions = [
+            `int x=5;\nx++;`, `int x=5;\n++x;`, `int x=8,y=3;\nint z=x++ + ++y;`, `int a=6,b=2;\nint c=++a + b--;`, 
+            `int x=20;\nx/=5;`, `int x=15;\nx%=4;`, `int x=10;\nx+=7;`, `int x=25;\nx-=9;`, `int x=6;\nx*=8;`, 
+            `int x=4,y=5;\nint z=++x + y++;`, `int a=10;\nint b=++a;`, `int a=10;\nint b=a++;`, `int a=12,b=5;\nint c=a%b;`, 
+            `int x=9;\nx--;`, `int x=7;\n--x;`, `int a=4,b=6;\nint c=++a + ++b;`, `int a=9,b=2;\nint c=a++ - --b;`, 
+            `int x=3;\nx*=x;`, `int x=100;\nx/=10;`, `int x=18;\nx%=7;`
+        ];
+
+        const findErrors = [
+            `System.out.println("Hello")`, `Scanner sc=new Scanner(System.in)`, `int a="20";`, `double x=12.5`, 
+            `scanner sc=new scanner(System.in);`, `Math.square(16);`, `if(a>b)\nSystem.out.println("Greater")\nelse\nSystem.out.println("Smaller");`, 
+            `switch(choice)\n{\ncase1:\nSystem.out.println("One");\n}`, `public class Demo\n{\npublic static void main(String args)`, 
+            `System.out.printlin("Java");`, `Int a=10;`, `char ch="A";`, `boolean x="true";`, `double p=Math.Sqrt(49);`, 
+            `Math.Max(20,30);`, `if(a>b);\nSystem.out.println(a);`, `case 1\nSystem.out.println("One");`, `import java.utility.*;`, 
+            `nextInteger();`, `double x=5/2;`
+        ];
+
+        const programs = [
+            "Area and Perimeter of a Rectangle", "Area and Circumference of a Circle", "Simple Interest Calculator",
+            "Profit or Loss Calculator", "Discount + GST Calculator", "Salary Calculator (Basic, HRA, DA, Gross Salary)",
+            "Electricity Bill Calculation", "Average of Three Subjects and Grade", "Largest and Smallest of Three Numbers using Math.max() and Math.min()",
+            "Convert Days into Years, Months and Days", "Convert Temperature (Celsius to Fahrenheit)", "Convert Rupees into Dollars (using a fixed exchange rate)",
+            "Check whether a number is Even or Odd", "Check whether a number is Positive, Negative or Zero", "Find the Greatest among Three Numbers using if...else",
+            "Display the Day of the Week using switch", "Display the Month Name using switch", "Create a Simple Calculator using switch (+, -, ×, ÷)",
+            "Accept a Character and check whether it is a Vowel or Consonant"
+            // Q20 is handled statically in HTML due to table
+        ];
+
+        // Format code inline markers
+        const formatInlineCode = (text) => text.replace(/`([^`]+)`/g, '<code class="bg-slate-200 text-rose-600 px-1 rounded">$1</code>');
+
+        // Render Functions
+        document.getElementById('mcq-container').innerHTML = mcqs.map((q, i) => `
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                <p class="font-bold text-slate-800 mb-3 flex items-start gap-2">
+                    <span class="bg-blue-100 text-blue-700 w-6 h-6 flex items-center justify-center rounded-full text-xs shrink-0 mt-0.5">${i+1}</span>
+                    <span>${formatInlineCode(q.q)}</span>
+                </p>
+                <ul class="space-y-2 text-sm text-slate-600 pl-8 list-[lower-alpha]">
+                    ${q.options.map(opt => `<li><span class="bg-slate-50 px-2 py-1 rounded border border-slate-100 block">${opt}</span></li>`).join('')}
+                </ul>
+            </div>
+        `).join('');
+
+        document.getElementById('definitions-container').innerHTML = definitions.map(def => `
+            <span class="bg-purple-50 border border-purple-200 text-purple-800 px-4 py-2 rounded-xl font-medium shadow-sm flex items-center gap-2">
+                <i data-lucide="hash" class="w-4 h-4 opacity-50"></i> ${def}
+            </span>
+        `).join('');
+
+        document.getElementById('saq-container').innerHTML = shortAnswers.map((saq, i) => `
+            <li class="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:bg-white transition-colors">
+                <span class="text-amber-500 font-bold shrink-0">Q${i+1}.</span>
+                <span>${formatInlineCode(saq)}</span>
+            </li>
+        `).join('');
+
+        const renderCodeBlock = (containerId, arr, themeColor, icon) => {
+            document.getElementById(containerId).innerHTML = arr.map((code, i) => `
+                <div class="bg-[#1e1e2e] p-4 rounded-2xl shadow-sm border border-slate-700 relative group overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-${themeColor}-500 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="text-${themeColor}-400 text-xs font-bold mb-3 flex items-center gap-1">
+                        <i data-lucide="${icon}" class="w-3 h-3"></i> Q${i+1}
+                    </span>
+                    <pre class="text-sm font-mono text-slate-300 overflow-x-auto pb-2"><code>${code}</code></pre>
+                </div>
+            `).join('');
+        };
+
+        renderCodeBlock('predict-container', predictOutputs, 'emerald', 'terminal-square');
+        renderCodeBlock('evaluate-container', evaluateExpressions, 'rose', 'calculator');
+        renderCodeBlock('errors-container', findErrors, 'red', 'bug');
+
+        document.getElementById('programs-container').innerHTML = programs.map((prog, i) => `
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:border-indigo-300 transition-colors">
+                <div class="bg-indigo-50 text-indigo-600 w-10 h-10 flex items-center justify-center rounded-xl shrink-0 font-bold">
+                    ${i+1}
+                </div>
+                <p class="text-slate-700 font-medium pt-2">${prog}</p>
+            </div>
+        `).join('');
+
+        // Initialize Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
