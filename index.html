@@ -1,485 +1,1728 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICSE Class IX Computer Applications Revision</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <style>
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.4; }
-            80% { opacity: 0.4; }
-            100% { transform: translateY(-100vh) scale(1.2) rotate(45deg); opacity: 0; }
-        }
-        .study-particle {
-            position: absolute;
-            bottom: -50px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(2px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            animation: floatUp 12s infinite linear;
-        }
-        .study-particle:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 15s; }
-        .study-particle:nth-child(2) { width: 25px; height: 25px; left: 25%; animation-duration: 10s; animation-delay: 2s; }
-        .study-particle:nth-child(3) { width: 60px; height: 60px; left: 45%; animation-duration: 18s; animation-delay: 1s; border-radius: 50%;}
-        .study-particle:nth-child(4) { width: 30px; height: 30px; left: 65%; animation-duration: 12s; animation-delay: 5s; }
-        .study-particle:nth-child(5) { width: 45px; height: 45px; left: 80%; animation-duration: 14s; animation-delay: 3s; }
-        .study-particle:nth-child(6) { width: 20px; height: 20px; left: 90%; animation-duration: 9s; animation-delay: 0s; border-radius: 50%;}
-        
-        /* Custom Scrollbar for code blocks */
-        pre::-webkit-scrollbar { height: 6px; }
-        pre::-webkit-scrollbar-track { background: transparent; }
-        pre::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class IX Revision - FA1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:            #111111;
+    --bg-alt:        #171717;
+    --surface:       #1E1E1E;
+    --surface-hi:    #262626;
+    --border:        #333333;
+    --text:          #E5E5E5;
+    --muted:         #888888;
+    --mono:          'JetBrains Mono', monospace;
+    --display:       'Outfit', sans-serif;
+    --body:          'Outfit', sans-serif;
+
+    --mint:          #00E5FF;
+    --mint-dim:      rgba(0, 229, 255, 0.12);
+    --amber:         #FBBF24;
+    --amber-dim:     rgba(251, 191, 36, 0.12);
+    --coral:         #F87171;
+    --coral-dim:     rgba(248, 113, 113, 0.12);
+    --violet:        #B388FF;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.5;
+    padding-bottom:120px;
+  }
+
+  ::selection{ background:var(--mint); color:#111111; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    max-width:960px;
+    margin:0 auto;
+    padding:56px 24px 20px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--mint);
+    letter-spacing:.06em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{ content:"//"; color:var(--muted); }
+  h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(32px, 5vw, 52px);
+    line-height:1.08;
+    margin:14px 0 10px;
+    letter-spacing:-0.01em;
+  }
+  h1 span{ color:var(--mint); }
+  .hero p.sub{
+    color:var(--muted);
+    font-size:16px;
+    max-width:58ch;
+    margin:0 0 26px;
+  }
+
+  /* compile progress */
+  .compile-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px 22px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .compile-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--muted);
+  }
+  #compileMsg{ color:var(--text); font-weight:500; }
+  #compileCount{ color:var(--mint); font-weight:600; }
+  .track{
+    height:10px;
+    border-radius:999px;
+    background:#0B0F1D;
+    border:1px solid var(--border);
+    overflow:hidden;
+  }
+  .track-fill{
+    height:100%;
+    width:0%;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--mint), var(--violet));
+    transition:width .4s ease;
+  }
+
+  /* ---------- Tabs ---------- */
+  .tab-bar{
+    max-width:960px;
+    margin:30px auto 0;
+    padding:0 24px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .tab{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--muted);
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-bottom:none;
+    padding:11px 18px 10px;
+    border-radius:12px 12px 0 0;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition:color .15s, background .15s;
+  }
+  .tab .n{
+    background:var(--bg-alt);
+    color:var(--muted);
+    font-size:11px;
+    padding:1px 7px;
+    border-radius:999px;
+  }
+  .tab.active{
+    color:var(--text);
+    background:var(--bg);
+    border-color:var(--border);
+    box-shadow:0 -2px 0 var(--mint) inset;
+  }
+  .tab.active .n{ background:var(--mint-dim); color:var(--mint); }
+  .tab:hover{ color:var(--text); }
+
+  .panel-wrap{
+    max-width:960px;
+    margin:0 auto;
+    padding:0 24px;
+    border-top:1px solid var(--border);
+  }
+  .panel{ display:none; padding-top:26px; }
+  .panel.active{ display:block; animation:fadeIn .25s ease; }
+  @keyframes fadeIn{ from{ opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+
+  .part-label{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin:26px 0 12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .part-label::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--border);
+  }
+  .group-label{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:15px;
+    color:var(--violet);
+    margin:22px 0 12px;
+    padding-left:12px;
+    border-left:3px solid var(--violet);
+  }
+
+  /* ---------- Cards ---------- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    margin-bottom:14px;
+    overflow:hidden;
+    transition:border-color .15s;
+  }
+  .card:hover{ border-color:#3c477e; }
+  .card.star{ border-left:3px solid var(--amber); }
+
+  .card-head{
+    display:flex;
+    gap:14px;
+    padding:18px 20px;
+    align-items:flex-start;
+  }
+  .qid{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:13px;
+    color:var(--muted);
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:4px 9px;
+    white-space:nowrap;
+    height:fit-content;
+  }
+  .qtext{
+    font-weight:600;
+    font-size:16px;
+    flex:1;
+  }
+  .qtext code, .qtext pre{
+    font-family:var(--mono);
+    background:var(--bg-alt);
+    border-radius:6px;
+  }
+  .qtext pre{
+    padding:10px 12px;
+    margin:8px 0 0;
+    overflow-x:auto;
+    font-size:13.5px;
+    border:1px solid var(--border);
+  }
+  .qtext code{ padding:2px 6px; font-size:13.5px; }
+  .star-badge{
+    color:var(--amber);
+    font-size:14px;
+    flex-shrink:0;
+  }
+
+  .options{
+    list-style:none;
+    margin:12px 0 0;
+    padding:0 20px 4px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+  .opt{
+    font-family:var(--body);
+    font-size:14.5px;
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:8px 12px;
+    color:var(--muted);
+    display:flex;
+    gap:8px;
+  }
+  .opt b{ color:var(--text); font-family:var(--mono); }
+  .opt.correct{
+    border-color:var(--mint);
+    background:var(--mint-dim);
+    color:var(--text);
+  }
+  .opt pre, .opt code{
+    font-family:var(--mono);
+    background:none;
+    padding:0;
+    margin:0;
+    color:inherit;
+    white-space:pre-wrap;
+  }
+
+  .reveal-btn{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    border-top:1px dashed var(--border);
+    color:var(--mint);
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:600;
+    padding:12px 20px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:14px;
+  }
+  .reveal-btn:hover{ background:rgba(94,234,212,0.05); }
+  .reveal-btn .chev{ transition:transform .2s ease; }
+  .reveal-btn.open .chev{ transform:rotate(180deg); }
+  .reveal-btn .lbl-open{ display:none; }
+  .reveal-btn.open .lbl-closed{ display:none; }
+  .reveal-btn.open .lbl-open{ display:inline; }
+
+  .answer{
+    display:grid;
+    grid-template-rows:0fr;
+    transition:grid-template-rows .35s ease;
+    background:var(--bg-alt);
+  }
+  .answer.open{ grid-template-rows:1fr; }
+  .answer-inner{ overflow:hidden; padding:0 20px; }
+  .answer.open .answer-inner{ padding:16px 20px 20px; }
+  .answer-line{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    font-weight:600;
+    font-size:15px;
+  }
+  .answer-line .tick{ font-size:17px; }
+  .answer-line.true .tick{ color:var(--mint); }
+  .answer-line.false .tick{ color:var(--coral); }
+  .answer-mono{
+    font-family:var(--mono);
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:2px 8px;
+    font-size:14px;
+  }
+  .explain{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:13.5px;
+    padding-left:27px;
+  }
+  .explain b{ color:var(--text); }
+
+  /* True/False chip layout */
+  .tf-chip{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:12px;
+    font-weight:600;
+    padding:3px 10px;
+    border-radius:999px;
+    margin-left:10px;
+  }
+  .tf-chip.true{ background:var(--mint-dim); color:var(--mint); }
+  .tf-chip.false{ background:var(--coral-dim); color:var(--coral); }
+
+  /* Bonus grid */
+  .bonus-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  .bonus-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:16px 18px;
+    cursor:pointer;
+  }
+  .bonus-card:hover{ border-color:var(--violet); }
+  .bonus-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .bonus-num{
+    font-family:var(--mono);
+    color:var(--violet);
+    font-size:12px;
+    font-weight:700;
+  }
+  .bonus-q{ font-weight:600; font-size:14.5px; margin-top:6px; }
+  .bonus-a{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--border);
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--mint);
+    display:none;
+  }
+  .bonus-a code{ background:none; }
+  .bonus-card.open .bonus-a{ display:block; }
+  .bonus-hint{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--muted);
+    margin-top:2px;
+  }
+
+  /* ---------- Theory Q&A ---------- */
+  .theory-body p{ margin:0 0 10px; font-size:14.5px; }
+  .theory-body p:last-child{ margin-bottom:0; }
+  .theory-body ul, .theory-body ol{ margin:8px 0; padding-left:22px; font-size:14.5px; }
+  .theory-body li{ margin:4px 0; }
+  .theory-body table{
+    width:100%;
+    border-collapse:collapse;
+    margin:10px 0;
+    font-size:13.5px;
+  }
+  .theory-body th, .theory-body td{
+    border:1px solid var(--border);
+    padding:8px 10px;
+    text-align:left;
+  }
+  .theory-body th{ background:var(--surface); color:var(--mint); font-family:var(--mono); }
+  .theory-body pre{
+    font-family:var(--mono);
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:10px 12px;
+    margin:8px 0;
+    overflow-x:auto;
+    font-size:13.5px;
+  }
+  .box{
+    border-radius:10px;
+    padding:10px 14px;
+    margin:10px 0;
+    font-size:13.5px;
+    color:var(--text);
+  }
+  .box.example{ background:rgba(167,139,250,0.08); border-left:3px solid var(--violet); }
+  .box.example b{ color:var(--violet); }
+  .box.remember{ background:rgba(255,180,84,0.08); border-left:3px solid var(--amber); }
+  .box.remember b{ color:var(--amber); }
+  .box p{ margin:0; }
+
+  /* Exam tips banner */
+  .tips-banner{
+    background:linear-gradient(135deg, rgba(94,234,212,0.08), rgba(167,139,250,0.08));
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px 20px;
+    margin-bottom:22px;
+  }
+  .tips-banner h3{
+    font-family:var(--display);
+    font-size:16px;
+    margin:20px 0 10px;
+    color:var(--mint);
+  }
+  .tips-banner h3:first-child{ margin-top: 0; }
+  .tips-banner ul{ margin:0; padding-left:20px; font-size:14px; }
+  .tips-banner li{ margin:5px 0; }
+  .tips-banner b{ color:var(--amber); }
+  .tips-banner p{ margin:12px 0 4px; font-size:14px; }
+  .tips-banner p:first-child{ margin-top:0; }
+  .tips-banner table{ width:100%; border-collapse:collapse; margin:6px 0 14px; font-size:13px; }
+  .tips-banner th, .tips-banner td{ border:1px solid var(--border); padding:6px 9px; text-align:left; }
+  .tips-banner th{ background:rgba(255,255,255,0.03); color:var(--mint); font-family:var(--mono); }
+
+  /* Practice list — questions only, no answers available */
+  .practice-card{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px 18px;
+    margin-bottom:10px;
+  }
+  .practice-num{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--muted);
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:3px 8px;
+    flex-shrink:0;
+  }
+  .practice-q{ font-size:14.5px; font-weight:500; }
+  .practice-note{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--muted);
+    text-align:center;
+    margin:4px 0 18px;
+  }
+
+  /* Program formatting (No answers, rich text) */
+  .program-card{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:16px 20px;
+    margin-bottom:14px;
+  }
+  .program-card.star{ border-left:3px solid var(--amber); }
+  .program-q { font-size: 14.5px; font-weight: 500; flex:1; }
+  .program-q ul { margin: 8px 0; padding-left: 22px; font-size: 14px; }
+  .program-q p { margin: 8px 0; }
+  .program-q p:first-child { margin-top: 0; }
+  .program-q p:last-child { margin-bottom: 0; }
+  .program-q table { width:100%; border-collapse:collapse; margin:10px 0; font-size:13.5px; }
+  .program-q th, .program-q td { border:1px solid var(--border); padding:8px 10px; text-align:left; }
+  .program-q th { background:var(--surface-hi); color:var(--mint); font-family:var(--mono); }
+  .program-q code { font-family:var(--mono); background:var(--bg-alt); padding:2px 6px; border-radius:4px; font-size:13px; }
+
+  footer{
+    max-width:960px;
+    margin:50px auto 0;
+    padding:20px 24px;
+    color:var(--muted);
+    font-family:var(--mono);
+    font-size:12.5px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  @media (max-width:640px){
+    .options{ grid-template-columns:1fr; }
+    .bonus-grid{ grid-template-columns:1fr; }
+    .console-bar{ font-size:11px; }
+    .theory-body table, .program-q table{ display:block; overflow-x:auto; white-space:nowrap; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
 </head>
-<body class="min-h-screen bg-slate-50 font-sans text-slate-800">
+<body>
 
-    <!-- Hero Section -->
-    <header class="relative bg-gradient-to-br from-teal-900 via-emerald-800 to-teal-700 text-white overflow-hidden py-24 px-6 border-b-4 border-amber-400 shadow-lg">
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="study-particle"></div>
-            <div class="study-particle"></div>
-            <div class="study-particle"></div>
-            <div class="study-particle"></div>
-            <div class="study-particle"></div>
-            <div class="study-particle"></div>
-        </div>
-        
-        <div class="max-w-5xl mx-auto relative z-10 text-center space-y-6">
-            <div class="inline-flex items-center justify-center p-4 bg-white/10 rounded-2xl backdrop-blur-md mb-2 shadow-[0_0_30px_rgba(52,211,153,0.3)] border border-white/20">
-                <i data-lucide="graduation-cap" class="w-12 h-12 text-amber-300"></i>
-            </div>
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                ICSE Class IX <br/><span class="text-emerald-300">Computer Applications</span>
-            </h1>
-            <p class="text-xl md:text-3xl text-amber-300 font-bold tracking-wide">
-                FORMATIVE ASSESSMENT – I (2026)
-            </p>
-            <p class="text-lg text-emerald-100 font-medium max-w-2xl mx-auto pt-4 border-t border-emerald-600/50">
-                Most Important Revision Questions & Practice Set
-            </p>
-        </div>
-    </header>
+<div class="hero">
+  <div class="eyebrow">ready to execute</div>
+  <h1>Class IX Revision - <span>FA1</span></h1>
+  <p class="sub">ICSE Class IX Computer Applications — every MCQ, fill-in-the-blank, true/false, viva, and programming question from your handbook, compiled into one revision run.</p>
 
-    <main class="max-w-6xl mx-auto px-4 py-12 space-y-16">
+  <div class="compile-card">
+    <div class="compile-row">
+      <span id="compileMsg">Ready to compile...</span>
+      <span><span id="compileCount">0</span> / <span id="compileTotal">0</span> revealed</span>
+    </div>
+    <div class="track"><div class="track-fill" id="trackFill"></div></div>
+  </div>
+</div>
 
-        <!-- Syllabus Info Box -->
-        <section class="bg-white rounded-3xl p-8 shadow-sm border border-emerald-100 grid md:grid-cols-2 gap-8 relative overflow-hidden">
-            <div class="absolute -right-10 -top-10 opacity-5 pointer-events-none">
-                <i data-lucide="book-open" class="w-64 h-64 text-emerald-500"></i>
-            </div>
-            <div class="relative z-10">
-                <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <i data-lucide="info" class="text-blue-500"></i> Prepared based on:
-                </h3>
-                <ul class="space-y-3 text-slate-600 font-medium">
-                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 shrink-0"></i> ICSE Class IX Computer Applications syllabus</li>
-                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 shrink-0"></i> Previous school FA-1 papers</li>
-                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 shrink-0"></i> Common BlueJ practice questions</li>
-                    <li class="flex items-start gap-3"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500 shrink-0"></i> Frequently repeated ICSE question patterns</li>
-                </ul>
-            </div>
-            <div class="relative z-10 bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
-                <h3 class="text-lg font-bold text-emerald-900 mb-4 flex items-center gap-2">
-                    <i data-lucide="layers" class="text-emerald-600"></i> Topics Covered
-                </h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Class & Objects</span>
-                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Values & Data Types</span>
-                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Operators</span>
-                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Intro to Java</span>
-                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Scanner Input</span>
-                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Math Library</span>
-                    <span class="bg-white border border-emerald-200 text-emerald-800 text-sm px-3 py-1.5 rounded-full shadow-sm font-medium">Conditional Statements</span>
-                </div>
-            </div>
-        </section>
+<div class="tab-bar" id="tabBar"></div>
+<div class="panel-wrap" id="panelWrap"></div>
 
-        <!-- SECTION A HEADER -->
-        <div class="text-center py-8">
-            <span class="text-emerald-600 font-bold tracking-widest uppercase text-sm border-2 border-emerald-200 px-4 py-1 rounded-full bg-emerald-50">Theory & Logic</span>
-            <h2 class="text-4xl font-extrabold text-slate-900 mt-4">SECTION A</h2>
-            <div class="w-24 h-1.5 bg-amber-400 mx-auto rounded-full mt-4"></div>
-        </div>
+<footer>
+  <span>⭐ = highly expected in FA-1</span>
+  <span id="footerCount"></span>
+</footer>
 
-        <!-- Part A: MCQs -->
-        <section class="space-y-6">
-            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
-                <div class="bg-blue-100 text-blue-600 p-2 rounded-xl"><i data-lucide="list-checks" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold text-slate-800">Part A – Most Important MCQs (25 Marks)</h3>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="mcq-container">
-                <!-- Rendered via JS to keep HTML clean -->
-            </div>
-        </section>
+<script>
+/* =========================================================================
+   DATA BANK
+   ========================================================================= */
 
-        <!-- Part B: Definitions -->
-        <section class="space-y-6">
-            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
-                <div class="bg-purple-100 text-purple-600 p-2 rounded-xl"><i data-lucide="book-open-check" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold text-slate-800">Part B – Definitions (20 Marks)</h3>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
-                <p class="text-slate-600 mb-6 font-medium">Define the following terms clearly with examples where applicable:</p>
-                <div class="flex flex-wrap gap-3" id="definitions-container">
-                    <!-- Rendered via JS -->
-                </div>
-            </div>
-        </section>
+const PARTS = [
+  {
+    label: "Part 1",
+    mcq: [
+      {q:"Java is a __________ programming language.", star:true,
+       options:["Machine","Assembly","High Level","Binary"], correct:2},
+      {q:"Which software is prescribed by CISCE for Class IX Computer Applications?", star:true,
+       options:["Eclipse","BlueJ","NetBeans","VS Code"], correct:1},
+      {q:"Which keyword is used to define a class?", star:true,
+       options:["object","new","class","public"], correct:2},
+      {q:"Which keyword is used to create an object?", star:true,
+       options:["object","class","new","define"], correct:2},
+      {q:"Which of the following is NOT a primitive data type?", star:true,
+       options:["int","boolean","String","char"], correct:2},
+      {q:"Which data type stores decimal values?", star:true,
+       options:["int","boolean","double","char"], correct:2},
+      {q:"Which data type stores only one character?",
+       options:["String","char","int","boolean"], correct:1},
+      {q:"Which data type stores only <b>true</b> or <b>false</b>?", star:true,
+       options:["boolean","char","float","String"], correct:0},
+      {q:"Which symbol ends every Java statement?",
+       options:[",",":",";","."], correct:2},
+      {q:"Which package contains the Scanner class?", star:true,
+       options:["java.io","java.lang","java.util","java.math"], correct:2},
+      {q:"Which import statement is used for Scanner?", star:true,
+       options:["<pre>import java.io.*;</pre>","<pre>import java.util.*;</pre>","<pre>import java.math.*;</pre>","<pre>import scanner.*;</pre>"], correct:1},
+      {q:"Which method accepts an integer from the keyboard?", star:true,
+       options:["next()","nextLine()","nextInt()","read()"], correct:2},
+      {q:"Which method accepts a decimal number?",
+       options:["nextInt()","nextDouble()","next()","nextFloat()"], correct:1},
+      {q:"Which operator gives the remainder?", star:true,
+       options:["/","%","*","+"], correct:1},
+      {q:"Which operator is called the Modulus operator?", star:true,
+       options:["%","/","+","*"], correct:0},
+      {q:"Which operator is Logical AND?", star:true,
+       options:["&","&&","||","!"], correct:1},
+      {q:"Which operator is Logical OR?",
+       options:["%","||","&&","=="], correct:1},
+      {q:"Which operator is Logical NOT?",
+       options:["!","%","+","="], correct:0},
+      {q:"Which operator is used to compare two values?", star:true,
+       options:["=","==","+=","%"], correct:1},
+      {q:"Which of the following is a relational operator?", star:true,
+       options:["%","&&",">=","||"], correct:2},
+      {q:"Math.abs(-25) returns", star:true,
+       options:["-25","25","0","Error"], correct:1},
+      {q:"Math.sqrt(196) returns", star:true,
+       options:["13","12","14","196"], correct:2},
+      {q:"Which Math function returns the greater of two numbers?", star:true,
+       options:["Math.min()","Math.abs()","Math.max()","Math.pow()"], correct:2},
+      {q:"Which Math function returns the smaller number?",
+       options:["Math.min()","Math.max()","Math.abs()","Math.ceil()"], correct:0},
+      {q:"Math.pow(3,2) returns",
+       options:["6","9","5","8"], correct:1},
+      {q:"Math.floor(5.9) returns",
+       options:["6","5","5.9","Error"], correct:1},
+      {q:"Math.ceil(5.1) returns",
+       options:["5","6","5.1","Error"], correct:1},
+      {q:"Which conditional statement is used for multiple branching?", star:true,
+       options:["if","switch","while","do...while"], correct:1},
+      {q:"Which keyword is generally used after every case in a switch statement?", star:true,
+       options:["stop","continue","break","exit"], correct:2},
+      {q:"Java is __________ sensitive.",
+       options:["Number","Case","Variable","Operator"], correct:1},
+      {q:"Which of the following is an arithmetic operator?",
+       options:["&&",">=","+","=="], correct:2},
+      {q:"The operator ++ is called",
+       options:["Decrement","Increment","Assignment","Logical"], correct:1},
+      {q:"Which statement displays output on the screen?",
+       options:["<pre>System.out.println();</pre>","<pre>Scanner.nextInt();</pre>","<pre>Math.sqrt();</pre>","<pre>main();</pre>"], correct:0},
+      {q:"Which of the following is an assignment operator?",
+       options:["+=",">","&&","%"], correct:0},
+      {q:"Java is an __________ programming language.", star:true,
+       options:["Procedural","Object-Oriented","Machine","Assembly"], correct:1},
+    ],
+    fillblank: [
+      {q:"Java is a __________ programming language.", a:"High-Level"},
+      {q:"Java is an __________ programming language.", a:"Object-Oriented"},
+      {q:"An __________ is an instance of a class.", a:"Object"},
+      {q:"The keyword used to create an object is __________.", a:"new"},
+      {q:"The Scanner class belongs to the __________ package.", a:"java.util"},
+      {q:"The method used to read an integer is __________.", a:"nextInt()"},
+      {q:"Math.max() returns the __________ number.", a:"Greater (or Larger)"},
+      {q:"Math.min() returns the __________ number.", a:"Smaller"},
+      {q:"Math.sqrt() returns the __________ root.", a:"Square"},
+      {q:"Math.abs() returns the __________ value.", a:"Absolute (Positive)"},
+      {q:"The operator % is called the __________ operator.", a:"Modulus"},
+      {q:"The operator && is called the __________ operator.", a:"Logical AND"},
+      {q:"The statement used for multiple branching is __________.", a:"switch"},
+      {q:"Every Java statement ends with a __________.", a:"Semicolon (;)"},
+      {q:"Java is __________ sensitive.", a:"Case"},
+    ],
+    truefalse: [
+      {q:"Java is case-sensitive.", a:true},
+      {q:"BlueJ is an IDE.", a:true},
+      {q:"String is a primitive data type.", a:false, ex:"String is a non-primitive (reference) data type."},
+      {q:"Scanner is used for accepting user input.", a:true},
+      {q:"Math.abs(-15) returns -15.", a:false, ex:"It returns 15."},
+      {q:"Math.max() returns the smaller value.", a:false},
+      {q:"Math.min() returns the greater value.", a:false},
+      {q:"The switch statement is a conditional statement.", a:true},
+      {q:"The break statement is generally used inside switch.", a:true},
+      {q:"The operator == is used for comparison.", a:true},
+      {q:"The operator = compares two values.", a:false, ex:"It is used for assignment."},
+      {q:"Java statements end with a semicolon.", a:true},
+      {q:"The Scanner class is available in java.io package.", a:false, ex:"It belongs to java.util."},
+      {q:"Math.pow(2,3) returns 8.", a:true},
+      {q:"A class can have many objects.", a:true},
+    ],
+    bonus: [
+      {q:"Expand OOP.", a:"Object-Oriented Programming"},
+      {q:"Expand IDE.", a:"Integrated Development Environment"},
+      {q:"Expand JVM.", a:"Java Virtual Machine"},
+      {q:"Expand JDK.", a:"Java Development Kit"},
+      {q:"Expand JRE.", a:"Java Runtime Environment"},
+      {q:"Which keyword creates an object?", a:"new"},
+      {q:"Which package contains Scanner?", a:"java.util"},
+      {q:"Which keyword defines a class?", a:"class"},
+      {q:"Which operator gives the remainder?", a:"%"},
+      {q:"Which function returns the square root?", a:"Math.sqrt()"},
+      {q:"Which function returns the greater number?", a:"Math.max()"},
+      {q:"Which function returns the smaller number?", a:"Math.min()"},
+      {q:"Which function returns the absolute value?", a:"Math.abs()"},
+      {q:"Which function raises a number to a power?", a:"Math.pow()"},
+      {q:"Which keyword prevents fall-through in switch?", a:"break"},
+      {q:"Which data type stores True or False?", a:"boolean"},
+      {q:"Which operator is used for comparison?", a:"=="},
+      {q:"Which statement displays output?", a:"System.out.println();"},
+      {q:"Which statement accepts integer input?", a:"nextInt();"},
+      {q:"Java is a __________ language.", a:"High-Level, Object-Oriented Programming Language"},
+    ]
+  },
+  {
+    label: "Part 2",
+    theory: [
+      {q:"What is Programming?", star:true,
+       body:`<p>Programming is the process of writing a set of instructions (called a <b>program</b>) that tells a computer how to perform a particular task.</p>
+             <div class="box example"><b>Example</b><p>A program to calculate the average marks of three subjects.</p></div>
+             <div class="box remember"><b>💡 Remember</b><p>Program = Set of Instructions</p></div>`},
+      {q:"What is Procedural Programming?", star:true,
+       body:`<p>Procedural Programming is a programming approach in which a program is divided into small procedures or functions. The focus is on <b>functions</b> rather than data.</p>
+             <p><b>Examples of Procedural Languages</b></p>
+             <ul><li>C</li><li>Pascal</li><li>BASIC</li></ul>
+             <div class="box example"><b>Example — to prepare tea</b>
+               <ul><li>Boil water</li><li>Add tea leaves</li><li>Add sugar</li><li>Add milk</li></ul>
+               <p>Each step is treated as a separate procedure.</p>
+             </div>`},
+      {q:"What is Object-Oriented Programming (OOP)?", star:true,
+       body:`<p>Object-Oriented Programming (OOP) is a programming methodology in which a program is organized around <b>objects</b> rather than functions. Objects contain both <b>data</b> and <b>methods</b>.</p>
+             <p><b>Examples of OOP Languages</b></p>
+             <ul><li>Java</li><li>C++</li><li>Python</li></ul>
+             <div class="box example"><b>Real-life Example</b><p>A <b>Car</b> is an object having: Data → Colour, Model, Speed &nbsp;|&nbsp; Methods → Start(), Stop(), Brake()</p></div>`},
+      {q:"Why is Java called an Object-Oriented Programming Language?", star:true,
+       body:`<p>Java is called an Object-Oriented Programming language because it supports the concept of <b>classes</b> and <b>objects</b>, and follows the four main principles of OOP.</p>`},
+      {q:"What are the four principles of Object-Oriented Programming?", star:true,
+       body:`<ol><li>Encapsulation</li><li>Data Abstraction</li><li>Inheritance</li><li>Polymorphism</li></ol>
+             <div class="box remember"><b>💡 Memory Trick — E A I P</b><p>Encapsulation · Abstraction · Inheritance · Polymorphism</p></div>`},
+      {q:"What is Encapsulation?", star:true,
+       body:`<p>Encapsulation is the process of combining <b>data (variables)</b> and the <b>methods (functions)</b> that operate on that data into a single unit called a <b>class</b>. It also protects data from unauthorized access.</p>
+             <div class="box example"><b>Real-life Example — a Bank Account</b><p>You cannot directly change your account balance. You use methods such as Deposit() and Withdraw().</p></div>`},
+      {q:"What is Data Abstraction?", star:true,
+       body:`<p>Data Abstraction means showing only the necessary information to the user while hiding the internal implementation.</p>
+             <div class="box example"><b>Real-life Example — an ATM machine</b><p>You can withdraw money, deposit money, and check balance — but you do not know how the machine processes these operations internally.</p></div>`},
+      {q:"What is Inheritance?", star:true,
+       body:`<p>Inheritance is the process by which one class acquires the properties and methods of another class. It helps in <b>code reusability</b>.</p>
+             <div class="box example"><b>Example</b><p>Animal → Dog<br>The Dog class inherits the properties of the Animal class.</p></div>`},
+      {q:"What is Polymorphism?", star:true,
+       body:`<p>Polymorphism means <b>one name, many forms</b>. The same method can perform different tasks depending on how it is used.</p>
+             <div class="box example"><b>Example — the "+" operator</b>
+               <pre>5 + 3</pre><p>performs addition, while</p>
+               <pre>"ICSE" + "2026"</pre><p>joins two strings. Thus, the same operator performs different tasks.</p>
+             </div>`},
+      {q:"What is Message Passing?", star:true,
+       body:`<p>Message Passing is the process by which one object communicates with another object by calling its methods.</p>`},
+      {q:"What is a Class?", star:true,
+       body:`<p>A Class is a blueprint or template used to create objects. It contains:</p>
+             <ul><li>Data (Variables)</li><li>Methods (Functions)</li></ul>
+             <div class="box example"><b>Example</b><p><code>Car</code> is a Class.</p></div>`},
+      {q:"What is an Object?", star:true,
+       body:`<p>An Object is an instance of a class. It occupies memory and can access the data and methods of the class.</p>
+             <div class="box example"><b>Example</b><p>Honda City, BMW, Swift are objects of the Car class.</p></div>`},
+      {q:"Differentiate between Class and Object.", star:true,
+       body:`<table><tr><th>Class</th><th>Object</th></tr>
+             <tr><td>Blueprint</td><td>Instance of a class</td></tr>
+             <tr><td>Logical entity</td><td>Physical entity</td></tr>
+             <tr><td>Does not occupy memory</td><td>Occupies memory</td></tr>
+             <tr><td>Used to create objects</td><td>Created from a class</td></tr></table>`},
+      {q:"Give a real-life example of Class and Object.", star:true,
+       body:`<table><tr><th>Class</th><th>Objects</th></tr>
+             <tr><td>Car</td><td>BMW, Audi</td></tr>
+             <tr><td>Student</td><td>Rahul, Sneha</td></tr>
+             <tr><td>Mobile</td><td>Samsung, Apple</td></tr>
+             <tr><td>Book</td><td>English Book, Science Book</td></tr></table>`},
+      {q:"What are the advantages of Object-Oriented Programming?", star:true,
+       body:`<ol><li>Code Reusability</li><li>Easy Maintenance</li><li>Better Security</li><li>Easy Debugging</li><li>Faster Development</li><li>Modular Programming</li><li>Easy to Modify Programs</li></ol>`},
+      {q:"Differentiate between Procedural Programming and Object-Oriented Programming.", star:true,
+       body:`<table><tr><th>Procedural Programming</th><th>Object-Oriented Programming</th></tr>
+             <tr><td>Focuses on Functions</td><td>Focuses on Objects</td></tr>
+             <tr><td>Data is less secure</td><td>Data is more secure</td></tr>
+             <tr><td>Difficult to modify</td><td>Easy to modify</td></tr>
+             <tr><td>Example: C</td><td>Example: Java</td></tr></table>`},
+      {q:"What is Java?", star:true,
+       body:`<p>Java is a high-level, object-oriented, platform-independent programming language developed by <b>Sun Microsystems</b>. It is now owned by <b>Oracle Corporation</b>.</p>`},
+      {q:"State any four features of Java.", star:true,
+       body:`<ol><li>Platform Independent</li><li>Object-Oriented</li><li>Secure</li><li>Robust</li></ol>
+             <p><b>Other features:</b></p><ul><li>Portable</li><li>Simple</li><li>Multithreaded</li><li>Distributed</li></ul>`},
+      {q:"What is Platform Independence?", star:true,
+       body:`<p>Platform Independence means a Java program written on one operating system can run on another operating system without modification. This is possible because of the <b>Java Virtual Machine (JVM)</b>.</p>`},
+      {q:"Expand the following: JVM", star:true, body:`<p><b>Java Virtual Machine</b></p>`},
+      {q:"Expand the following: JDK", body:`<p><b>Java Development Kit</b></p>`},
+      {q:"Expand the following: JRE", body:`<p><b>Java Runtime Environment</b></p>`},
+      {q:"What are Java Tokens?", star:true,
+       body:`<p>Tokens are the <b>smallest individual units</b> of a Java program.</p>
+             <p><b>Types of Tokens</b></p><ul><li>Keywords</li><li>Identifiers</li><li>Literals</li><li>Operators</li><li>Separators (Special Symbols)</li></ul>`},
+      {q:"What are Keywords?", star:true,
+       body:`<p>Keywords are reserved words in Java that have predefined meanings. They cannot be used as identifiers.</p>
+             <pre>class   public   static   void   int   double   new</pre>`},
+      {q:"What are Identifiers?", star:true,
+       body:`<p>Identifiers are the names given to variables, classes, methods and objects.</p>
+             <pre>age   Student   marks   calculateAverage</pre>`},
+      {q:"State any five rules for naming identifiers.", star:true,
+       body:`<ol><li>Must begin with a letter, '_' or '$'.</li><li>Cannot begin with a digit.</li><li>No spaces allowed.</li><li>Keywords cannot be used.</li><li>Java is case-sensitive.</li></ol>`},
+      {q:"What are Literals?", star:true,
+       body:`<p>Literals are fixed values assigned directly to variables.</p>
+             <pre>25   3.14   'A'   "BlueJ"   true</pre>`},
+      {q:"What are Variables?", star:true,
+       body:`<p>A variable is a named memory location used to store data whose value can change during program execution.</p>
+             <pre>int age=15;</pre>`},
+      {q:"What is a Constant?", star:true,
+       body:`<p>A constant is a value that does not change during the execution of a program.</p>
+             <pre>final double PI=3.14;</pre>`},
+      {q:"What are Data Types?", star:true,
+       body:`<p>A data type specifies the type of value that can be stored in a variable.</p>
+             <ul><li>int</li><li>double</li><li>char</li><li>boolean</li></ul>`},
+      {q:"Name the primitive data types used in Class IX.", star:true,
+       body:`<ul><li>int</li><li>double</li><li>char</li><li>boolean</li></ul>`},
+      {q:"Differentiate between int and double.", star:true,
+       body:`<table><tr><th>int</th><th>double</th></tr>
+             <tr><td>Stores whole numbers</td><td>Stores decimal numbers</td></tr>
+             <tr><td>Example: 25</td><td>Example: 25.75</td></tr></table>`},
+      {q:"What is a Variable Declaration?", star:true,
+       body:`<p>Declaring a variable means specifying its data type and name.</p><pre>int marks;</pre>`},
+      {q:"What is Variable Initialization?", star:true,
+       body:`<p>Assigning a value to a variable is called variable initialization.</p><pre>marks=95;</pre><p>or</p><pre>int marks=95;</pre>`},
+      {q:"What is the difference between Declaration and Initialization?", star:true,
+       body:`<table><tr><th>Declaration</th><th>Initialization</th></tr>
+             <tr><td>Creating the variable</td><td>Assigning a value</td></tr>
+             <tr><td>Example: int x;</td><td>Example: x=10;</td></tr></table>`},
+    ],
+    practice: [
+      {q:"Define Class."},
+      {q:"Define Object."},
+      {q:"Differentiate between Class and Object."},
+      {q:"What are Java Tokens?"},
+      {q:"What are Keywords?"},
+      {q:"What are Identifiers?"},
+      {q:"State five rules for naming identifiers."},
+      {q:"What are Literals?"},
+      {q:"What are Variables?"},
+      {q:"What are the four principles of OOP?"},
+      {q:"Explain Encapsulation."},
+      {q:"Explain Data Abstraction."},
+      {q:"Explain Polymorphism."},
+      {q:"Explain Inheritance."},
+      {q:"Advantages of OOP."},
+      {q:"Difference between Procedural Programming and OOP."},
+      {q:"What is Platform Independence?"},
+      {q:"State four features of Java."},
+      {q:"What is a Constant?"},
+      {q:"What are primitive data types?"},
+    ],
+    tips: `<ul>
+  <li>Remember the four principles of OOP using <b>EAIP</b>: <b>E</b>ncapsulation, <b>A</b>bstraction, <b>I</b>nheritance, <b>P</b>olymorphism</li>
+  <li><b>Class → Blueprint</b></li>
+  <li><b>Object → Instance</b></li>
+  <li><b>Identifier → Name</b></li>
+  <li><b>Keyword → Reserved Word</b></li>
+  <li><b>Token → Smallest Unit</b></li>
+</ul>`
+  },
+  {
+    label: "Part 3",
+    theory: [
+      {q:"What is the Scanner class?", star:true,
+       body:`<p>The <b>Scanner</b> class is a predefined Java class used to accept input from the keyboard during program execution. It belongs to the <b>java.util</b> package.</p>
+             <pre>Scanner sc = new Scanner(System.in);</pre>`},
+      {q:"Why do we import the Scanner class?", star:true,
+       body:`<p>The Scanner class is not available by default. Therefore, it must be imported before use.</p>
+             <pre>import java.util.*;</pre><p>or</p><pre>import java.util.Scanner;</pre>`},
+      {q:"What is the syntax to create a Scanner object?", star:true,
+       body:`<pre>Scanner sc = new Scanner(System.in);</pre>
+             <ul><li>Scanner → Class name</li><li>sc → Object name</li><li>new → Creates the object</li><li>System.in → Standard input device (Keyboard)</li></ul>`},
+      {q:"Explain the following statement: <code>Scanner sc = new Scanner(System.in);</code>", star:true,
+       body:`<ul><li><b>Scanner</b> → Name of the predefined class.</li><li><b>sc</b> → Name of the object.</li><li><b>new</b> → Keyword used to create an object.</li><li><b>System.in</b> → Refers to keyboard input.</li></ul>`},
+      {q:"Write any four Scanner methods.", star:true,
+       body:`<table><tr><th>Method</th><th>Purpose</th></tr>
+             <tr><td>nextInt()</td><td>Reads an integer</td></tr>
+             <tr><td>nextDouble()</td><td>Reads a decimal number</td></tr>
+             <tr><td>next()</td><td>Reads one word</td></tr>
+             <tr><td>nextLine()</td><td>Reads an entire line</td></tr></table>`},
+      {q:"Differentiate between next() and nextLine().", star:true,
+       body:`<table><tr><th>next()</th><th>nextLine()</th></tr>
+             <tr><td>Reads only one word</td><td>Reads the entire line</td></tr>
+             <tr><td>Stops at space</td><td>Reads spaces also</td></tr></table>
+             <div class="box example"><b>Example — input: "Universal High School"</b>
+             <p>Using <code>next();</code> → Output: <code>Universal</code></p>
+             <p>Using <code>nextLine();</code> → Output: <code>Universal High School</code></p></div>`},
+      {q:"Which Scanner method is used to read the following?", star:true,
+       body:`<table><tr><th>Data</th><th>Method</th></tr>
+             <tr><td>Integer</td><td>nextInt()</td></tr>
+             <tr><td>Decimal</td><td>nextDouble()</td></tr>
+             <tr><td>Word</td><td>next()</td></tr>
+             <tr><td>Sentence</td><td>nextLine()</td></tr></table>`},
+      {q:"Write a program fragment to accept the age of a student.", star:true,
+       body:`<pre>Scanner sc = new Scanner(System.in);
 
-        <!-- Part C: Short Answers -->
-        <section class="space-y-6">
-            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
-                <div class="bg-amber-100 text-amber-600 p-2 rounded-xl"><i data-lucide="message-square-text" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold text-slate-800">Part C – Very Important Short Answer Questions (20 Marks)</h3>
-            </div>
-            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200">
-                <ul class="space-y-4 text-slate-700 font-medium" id="saq-container">
-                    <!-- Rendered via JS -->
-                </ul>
-            </div>
-        </section>
+System.out.print("Enter Age : ");
 
-        <!-- Part D: Predict the Output -->
-        <section class="space-y-6">
-            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
-                <div class="bg-slate-800 text-emerald-400 p-2 rounded-xl"><i data-lucide="terminal" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold text-slate-800">Part D – Predict the Output (20 Marks)</h3>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="predict-container">
-                <!-- Rendered via JS -->
-            </div>
-        </section>
+int age = sc.nextInt();</pre>`},
+      {q:"What is an Operator?", star:true,
+       body:`<p>An Operator is a symbol used to perform an operation on one or more operands.</p>
+             <div class="box example"><b>Example</b><p><code>10 + 20</code> — '+' is an operator.</p></div>`},
+      {q:"What are Operands?", star:true,
+       body:`<p>Operands are the values on which an operator performs an operation.</p>
+             <div class="box example"><b>Example</b><p><code>10 + 20</code> — 10 and 20 are operands.</p></div>`},
+      {q:"What are Arithmetic Operators?", star:true,
+       body:`<p>Arithmetic operators perform mathematical calculations.</p>
+             <table><tr><th>Operator</th><th>Meaning</th></tr>
+             <tr><td>+</td><td>Addition</td></tr><tr><td>-</td><td>Subtraction</td></tr>
+             <tr><td>*</td><td>Multiplication</td></tr><tr><td>/</td><td>Division</td></tr>
+             <tr><td>%</td><td>Modulus</td></tr></table>`},
+      {q:"What are Relational Operators?", star:true,
+       body:`<p>Relational operators compare two values.</p>
+             <table><tr><th>Operator</th><th>Meaning</th></tr>
+             <tr><td>&gt;</td><td>Greater than</td></tr><tr><td>&lt;</td><td>Less than</td></tr>
+             <tr><td>&gt;=</td><td>Greater than or equal</td></tr><tr><td>&lt;=</td><td>Less than or equal</td></tr>
+             <tr><td>==</td><td>Equal to</td></tr><tr><td>!=</td><td>Not equal to</td></tr></table>`},
+      {q:"What are Logical Operators?", star:true,
+       body:`<p>Logical operators combine two or more conditions.</p>
+             <table><tr><th>Operator</th><th>Meaning</th></tr>
+             <tr><td>&amp;&amp;</td><td>Logical AND</td></tr>
+             <tr><td>||</td><td>Logical OR</td></tr>
+             <tr><td>!</td><td>Logical NOT</td></tr></table>`},
+      {q:"What are Assignment Operators?", star:true,
+       body:`<p>Assignment operators assign values to variables.</p>
+             <pre>=   +=   -=   *=   /=   %=</pre>`},
+      {q:"What are Unary Operators?", star:true,
+       body:`<p>Unary operators operate on only one operand.</p>
+             <pre>++   --</pre>`},
+      {q:"Differentiate between ++x and x++.", star:true,
+       body:`<table><tr><th>++x</th><th>x++</th></tr>
+             <tr><td>Pre-increment</td><td>Post-increment</td></tr>
+             <tr><td>Value increases first</td><td>Value increases later</td></tr></table>
+             <div class="box example"><b>Example</b>
+             <pre>int x=5;
+System.out.println(++x);</pre><p>Output: <code>6</code></p>
+             <pre>int x=5;
+System.out.println(x++);</pre><p>Output: <code>5</code> (final value of x becomes 6)</p></div>`},
+      {q:"What is Operator Precedence?", star:true,
+       body:`<p>Operator precedence determines the order in which operators are evaluated.</p>
+             <div class="box example"><b>Example</b><pre>5+6*2</pre><p>Output: <code>17</code>, because multiplication is performed before addition.</p></div>`},
+      {q:"Which operator has higher precedence?", star:true,
+       body:`<p>Among the arithmetic operators, <code>*, / and %</code> have higher precedence than <code>+ and -</code>.</p>`},
+      {q:"Differentiate between = and ==.", star:true,
+       body:`<table><tr><th>=</th><th>==</th></tr>
+             <tr><td>Assignment operator</td><td>Comparison operator</td></tr>
+             <tr><td>Assigns value</td><td>Compares values</td></tr></table>
+             <div class="box example"><b>Example</b><p><code>a=5;</code> → Assignment &nbsp;|&nbsp; <code>a==5</code> → Comparison</p></div>`},
+      {q:"What are Mathematical Library Methods?", star:true,
+       body:`<p>Mathematical Library Methods are predefined methods available in the <b>Math</b> class to perform mathematical calculations.</p>`},
+      {q:"Explain Math.abs().", star:true,
+       body:`<p>Returns the absolute (positive) value.</p><pre>Math.abs(number)</pre>
+             <div class="box example"><b>Example</b><pre>Math.abs(-25)</pre><p>Output: <code>25</code></p></div>`},
+      {q:"Explain Math.max().", star:true,
+       body:`<p>Returns the greater of two numbers.</p><pre>Math.max(a,b)</pre>
+             <div class="box example"><b>Example</b><pre>Math.max(25,40)</pre><p>Output: <code>40</code></p></div>`},
+      {q:"Explain Math.min().", star:true,
+       body:`<p>Returns the smaller of two numbers.</p>
+             <div class="box example"><b>Example</b><pre>Math.min(25,40)</pre><p>Output: <code>25</code></p></div>`},
+      {q:"Explain Math.sqrt().", star:true,
+       body:`<p>Returns the square root.</p>
+             <div class="box example"><b>Example</b><pre>Math.sqrt(144)</pre><p>Output: <code>12.0</code></p></div>`},
+      {q:"Explain Math.pow().", star:true,
+       body:`<p>Raises one number to the power of another.</p>
+             <div class="box example"><b>Example</b><pre>Math.pow(2,5)</pre><p>Output: <code>32.0</code></p></div>`},
+      {q:"Explain Math.floor().", star:true,
+       body:`<p>Returns the greatest integer less than or equal to the given number.</p>
+             <div class="box example"><b>Example</b><pre>Math.floor(8.9)</pre><p>Output: <code>8.0</code></p></div>`},
+      {q:"Explain Math.ceil().", star:true,
+       body:`<p>Returns the smallest integer greater than or equal to the given number.</p>
+             <div class="box example"><b>Example</b><pre>Math.ceil(8.1)</pre><p>Output: <code>9.0</code></p></div>`},
+      {q:"Explain Math.random().", star:true,
+       body:`<p>Returns a random decimal number greater than or equal to <b>0.0</b> and less than <b>1.0</b>.</p>
+             <div class="box example"><b>Example</b><pre>Math.random()</pre><p>Possible Output: <code>0.34789</code>, <code>0.91245</code>, <code>0.12678</code></p></div>`},
+      {q:"Differentiate between Math.max() and Math.min().", star:true,
+       body:`<table><tr><th>Math.max()</th><th>Math.min()</th></tr>
+             <tr><td>Returns larger number</td><td>Returns smaller number</td></tr></table>`},
+      {q:"Differentiate between Math.floor() and Math.ceil().", star:true,
+       body:`<table><tr><th>Math.floor()</th><th>Math.ceil()</th></tr>
+             <tr><td>Rounds downward</td><td>Rounds upward</td></tr></table>
+             <pre>Math.floor(7.8)=7.0
+Math.ceil(7.8)=8.0</pre>`},
+      {q:"What is a Conditional Statement?", star:true,
+       body:`<p>A Conditional Statement is used to make decisions based on a condition.</p>`},
+      {q:"What is an if statement?", star:true,
+       body:`<p>The <b>if</b> statement executes a block of code only when the condition is true.</p>
+             <pre>if(condition)
+{
+    statements;
+}</pre>`},
+      {q:"What is an if...else statement?", star:true,
+       body:`<p>The <b>if...else</b> statement executes one block when the condition is true and another block when the condition is false.</p>
+             <pre>if(condition)
+{
+    statements;
+}
+else
+{
+    statements;
+}</pre>`},
+      {q:"What is a nested if?", star:true,
+       body:`<p>A nested if is an <b>if statement inside another if statement</b>. It is used when more than one condition has to be checked.</p>`},
+      {q:"What is a switch statement?", star:true,
+       body:`<p>The switch statement is a multiple-selection statement used to execute one block of code from many choices.</p>
+             <pre>switch(expression)
+{
+case value1:
+statements;
+break;
 
-        <!-- Part E: Evaluate Expressions -->
-        <section class="space-y-6">
-            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
-                <div class="bg-rose-100 text-rose-600 p-2 rounded-xl"><i data-lucide="calculator" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold text-slate-800">Part E – Evaluate the Expressions (20 Marks)</h3>
-            </div>
-            <p class="text-slate-600 font-medium px-2">Find the final values of the variables after executing the expressions.</p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4" id="evaluate-container">
-                <!-- Rendered via JS -->
-            </div>
-        </section>
+case value2:
+statements;
+break;
 
-        <!-- Part F: Find the Errors -->
-        <section class="space-y-6">
-            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
-                <div class="bg-red-100 text-red-600 p-2 rounded-xl"><i data-lucide="bug" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold text-slate-800">Part F – Find the Errors (20 Marks)</h3>
-            </div>
-            <p class="text-slate-600 font-medium px-2">Identify and correct the syntax or logical errors in the following statements.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="errors-container">
-                <!-- Rendered via JS -->
-            </div>
-        </section>
+default:
+statements;
+}</pre>`},
+      {q:"Why is the break statement used in switch?", star:true,
+       body:`<p>The <b>break</b> statement terminates the current case and prevents the execution of the remaining cases.</p>`},
+      {q:"What is the purpose of the default case?", star:true,
+       body:`<p>The <b>default</b> case is executed when none of the cases match. It is optional but recommended.</p>`},
+      {q:"Differentiate between if...else and switch.", star:true,
+       body:`<table><tr><th>if...else</th><th>switch</th></tr>
+             <tr><td>Checks conditions</td><td>Checks fixed values</td></tr>
+             <tr><td>Can use relational operators</td><td>Uses equality only</td></tr>
+             <tr><td>Suitable for ranges</td><td>Suitable for menu-driven programs</td></tr></table>`},
+    ],
+    practice: [
+      {q:"What is Scanner?"},
+      {q:"Explain the Scanner object creation statement."},
+      {q:"Differentiate between next() and nextLine()."},
+      {q:"Define an Operator."},
+      {q:"What are Arithmetic Operators?"},
+      {q:"What are Relational Operators?"},
+      {q:"What are Logical Operators?"},
+      {q:"Explain Math.abs()."},
+      {q:"Explain Math.max()."},
+      {q:"Explain Math.min()."},
+      {q:"Explain Math.sqrt()."},
+      {q:"Explain Math.pow()."},
+      {q:"Explain Math.floor()."},
+      {q:"Explain Math.ceil()."},
+      {q:"What is Operator Precedence?"},
+      {q:"Differentiate between = and ==."},
+      {q:"Differentiate between ++x and x++."},
+      {q:"What is an if statement?"},
+      {q:"What is a switch statement?"},
+      {q:"Why is break used in a switch statement?"},
+    ],
+    tips: `<p><b>Remember these Scanner methods</b></p>
+           <table><tr><th>Method</th><th>Purpose</th></tr>
+           <tr><td>nextInt()</td><td>Integer</td></tr>
+           <tr><td>nextDouble()</td><td>Decimal</td></tr>
+           <tr><td>next()</td><td>Word</td></tr>
+           <tr><td>nextLine()</td><td>Sentence</td></tr></table>
+           <p><b>Remember these Math methods</b></p>
+           <table><tr><th>Function</th><th>Work</th></tr>
+           <tr><td>abs()</td><td>Absolute value</td></tr>
+           <tr><td>max()</td><td>Larger value</td></tr>
+           <tr><td>min()</td><td>Smaller value</td></tr>
+           <tr><td>sqrt()</td><td>Square root</td></tr>
+           <tr><td>pow()</td><td>Power</td></tr>
+           <tr><td>floor()</td><td>Round down</td></tr>
+           <tr><td>ceil()</td><td>Round up</td></tr>
+           <tr><td>random()</td><td>Random decimal</td></tr></table>`
+  },
+  {
+    label: "Part 4",
+    theory: [
+      /* ---------------- Output Prediction ---------------- */
+      {group:"Output Prediction", star:true,
+       q:`Predict the output.<pre>System.out.println("Welcome");
+System.out.print("Computer ");
+System.out.print("Applications");</pre>`,
+       body:`<pre>Welcome
+Computer Applications</pre>
+             <p><b>Explanation:</b> <code>println()</code> prints the text and moves the cursor to the next line. <code>print()</code> prints without moving to the next line.</p>`},
+      {group:"Output Prediction", star:true, q:`<pre>System.out.println(Math.abs(-35));</pre>`, body:`<pre>35</pre>`},
+      {group:"Output Prediction", star:true, q:`<pre>System.out.println(Math.max(28,19));</pre>`, body:`<pre>28</pre>`},
+      {group:"Output Prediction", star:true, q:`<pre>System.out.println(Math.min(45,82));</pre>`, body:`<pre>45</pre>`},
+      {group:"Output Prediction", star:true, q:`<pre>System.out.println(Math.sqrt(169));</pre>`, body:`<pre>13.0</pre>`},
+      {group:"Output Prediction", star:true, q:`<pre>System.out.println(Math.pow(2,4));</pre>`, body:`<pre>16.0</pre>`},
+      {group:"Output Prediction", star:true, q:`<pre>System.out.println(Math.floor(9.8));</pre>`, body:`<pre>9.0</pre>`},
+      {group:"Output Prediction", star:true, q:`<pre>System.out.println(Math.ceil(9.2));</pre>`, body:`<pre>10.0</pre>`},
+      {group:"Output Prediction", star:true,
+       q:`<pre>int x=5;
+System.out.println(++x);</pre>`,
+       body:`<pre>6</pre><p><b>Explanation:</b> Pre-increment increases the value before printing.</p>`},
+      {group:"Output Prediction", star:true,
+       q:`<pre>int x=5;
+System.out.println(x++);</pre>`,
+       body:`<pre>5</pre><p>Final value of x = <b>6</b></p>`},
+      {group:"Output Prediction", star:true,
+       q:`<pre>int x=8;
+System.out.println(--x);</pre>`, body:`<pre>7</pre>`},
+      {group:"Output Prediction", star:true,
+       q:`<pre>int x=8;
+System.out.println(x--);</pre>`,
+       body:`<pre>8</pre><p>Final value of x = <b>7</b></p>`},
+      {group:"Output Prediction",
+       q:`<pre>int a=20,b=5;
+System.out.println(a+b);</pre>`, body:`<pre>25</pre>`},
+      {group:"Output Prediction",
+       q:`<pre>int a=20,b=5;
+System.out.println(a-b);</pre>`, body:`<pre>15</pre>`},
+      {group:"Output Prediction",
+       q:`<pre>int a=20,b=5;
+System.out.println(a*b);</pre>`, body:`<pre>100</pre>`},
+      {group:"Output Prediction", star:true,
+       q:`<pre>int a=20,b=5;
+System.out.println(a/b);</pre>`, body:`<pre>4</pre>`},
+      {group:"Output Prediction", star:true,
+       q:`<pre>int a=20,b=6;
+System.out.println(a%b);</pre>`, body:`<pre>2</pre>`},
+      {group:"Output Prediction",
+       q:`<pre>System.out.println(5+3*2);</pre>`,
+       body:`<pre>11</pre><p><b>Explanation:</b> Multiplication is performed before addition.</p>`},
+      {group:"Output Prediction", q:`<pre>System.out.println((5+3)*2);</pre>`, body:`<pre>16</pre>`},
+      {group:"Output Prediction", star:true,
+       q:`<pre>System.out.println(Math.max(Math.min(15,25),20));</pre>`, body:`<pre>20</pre>`},
 
-        <!-- SECTION B HEADER -->
-        <div class="text-center py-16">
-            <span class="text-blue-600 font-bold tracking-widest uppercase text-sm border-2 border-blue-200 px-4 py-1 rounded-full bg-blue-50">Application & Logic</span>
-            <h2 class="text-4xl font-extrabold text-slate-900 mt-4">SECTION B</h2>
-            <div class="w-24 h-1.5 bg-blue-500 mx-auto rounded-full mt-4"></div>
-        </div>
+      /* ---------------- Expression Evaluation ---------------- */
+      {group:"Expression Evaluation", star:true,
+       q:`Evaluate.<pre>int x=5;
+x++;</pre>`, body:`<p>Final value of x = <b>6</b></p>`},
+      {group:"Expression Evaluation", star:true,
+       q:`<pre>int x=5;
+++x;</pre>`, body:`<p>Final value of x = <b>6</b></p>`},
+      {group:"Expression Evaluation", star:true,
+       q:`<pre>int x=5,y=3;
+int z=x++ + ++y;</pre>`,
+       body:`<ol><li><code>x++</code> = 5</li><li><code>++y</code> = 4</li><li><code>z</code> = 5 + 4 = 9</li></ol>
+             <p><b>Final values:</b> x = 6, y = 4, z = 9</p>`},
+      {group:"Expression Evaluation", star:true,
+       q:`<pre>int a=8,b=2;
+int c=++a + b--;</pre>`,
+       body:`<p><code>++a</code> = 9 &nbsp;|&nbsp; <code>b--</code> = 2 &nbsp;|&nbsp; c = 11</p>
+             <p><b>Final values:</b> a=9, b=1, c=11</p>`},
+      {group:"Expression Evaluation", star:true,
+       q:`<pre>int x=20;
+x+=5;</pre>`, body:`<pre>25</pre>`},
+      {group:"Expression Evaluation", q:`<pre>int x=25;
+x-=10;</pre>`, body:`<pre>15</pre>`},
+      {group:"Expression Evaluation", q:`<pre>int x=8;
+x*=5;</pre>`, body:`<pre>40</pre>`},
+      {group:"Expression Evaluation", q:`<pre>int x=24;
+x/=6;</pre>`, body:`<pre>4</pre>`},
+      {group:"Expression Evaluation", q:`<pre>int x=23;
+x%=4;</pre>`, body:`<pre>3</pre>`},
+      {group:"Expression Evaluation", star:true,
+       q:`<pre>int a=6,b=4;
+int c=++a + ++b;</pre>`, body:`<p><b>Final values:</b> a=7, b=5, c=12</p>`},
+      {group:"Expression Evaluation", star:true,
+       q:`<pre>int a=9,b=3;
+int c=a++ - --b;</pre>`,
+       body:`<p><code>a++</code> = 9 &nbsp;|&nbsp; <code>--b</code> = 2 &nbsp;|&nbsp; c = 7</p>
+             <p><b>Final values:</b> a=10, b=2, c=7</p>`},
+      {group:"Expression Evaluation", q:`<pre>int x=4;
+x*=x;</pre>`, body:`<pre>16</pre>`},
+      {group:"Expression Evaluation", q:`<pre>int x=100;
+x/=25;</pre>`, body:`<pre>4</pre>`},
+      {group:"Expression Evaluation", q:`<pre>int x=18;
+x%=7;</pre>`, body:`<pre>4</pre>`},
+      {group:"Expression Evaluation", star:true,
+       q:`<pre>int a=10;
+int b=a++;</pre>`, body:`<p><b>Final values:</b> a=11, b=10</p>`},
 
-        <!-- Programming Questions -->
-        <section class="space-y-6">
-            <div class="flex items-center gap-3 border-b-2 border-slate-200 pb-4">
-                <div class="bg-indigo-100 text-indigo-600 p-2 rounded-xl"><i data-lucide="code-2" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold text-slate-800">Most Important Programming Questions (20 Marks)</h3>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-4" id="programs-container">
-                <!-- Rendered via JS -->
-            </div>
+      /* ---------------- Find the Errors ---------------- */
+      {group:"Find the Errors", star:true,
+       q:`Find and correct the error.<pre>System.out.println("Hello")</pre>`,
+       body:`<pre>System.out.println("Hello");</pre><p><b>Reason:</b> Missing semicolon.</p>`},
+      {group:"Find the Errors", star:true,
+       q:`<pre>Scanner sc=new Scanner(System.in)</pre>`,
+       body:`<pre>Scanner sc=new Scanner(System.in);</pre>`},
+      {group:"Find the Errors", star:true,
+       q:`<pre>scanner sc=new scanner(System.in);</pre>`,
+       body:`<pre>Scanner sc=new Scanner(System.in);</pre><p><b>Reason:</b> Java is case-sensitive.</p>`},
+      {group:"Find the Errors", star:true,
+       q:`<pre>int a="25";</pre>`, body:`<pre>int a=25;</pre>`},
+      {group:"Find the Errors", q:`<pre>double x=25</pre>`, body:`<pre>double x=25;</pre>`},
+      {group:"Find the Errors", star:true,
+       q:`<pre>Math.square(25);</pre>`,
+       body:`<pre>Math.pow(25,2);</pre><p><b>Reason:</b> There is no Math.square() method in Java.</p>`},
+      {group:"Find the Errors", star:true,
+       q:`<pre>if(a&gt;b)
+System.out.println(a)
+else
+System.out.println(b);</pre>`,
+       body:`<pre>if(a>b)
+System.out.println(a);
+else
+System.out.println(b);</pre>`},
+      {group:"Find the Errors", star:true, q:`<pre>case1:</pre>`, body:`<pre>case 1:</pre>`},
+      {group:"Find the Errors", q:`<pre>System.out.printlin("Java");</pre>`, body:`<pre>System.out.println("Java");</pre>`},
+      {group:"Find the Errors", q:`<pre>Import java.util.*;</pre>`, body:`<pre>import java.util.*;</pre>`},
 
-            <!-- Special Table for Q20 -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-indigo-200 mt-6 relative overflow-hidden">
-                <div class="absolute right-0 top-0 w-2 h-full bg-indigo-500"></div>
-                <span class="text-indigo-600 font-bold text-sm mb-2 block">Question 20 (Special Focus)</span>
-                <p class="text-slate-800 font-medium mb-4">Accept the Marks of English, Maths and Science and allot the stream based on the following criteria:</p>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse rounded-lg overflow-hidden shadow-sm">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-700">
-                                <th class="border border-slate-200 p-3 font-bold">Condition</th>
-                                <th class="border border-slate-200 p-3 font-bold">Stream</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white text-slate-600">
-                            <tr>
-                                <td class="border border-slate-200 p-3">All ≥ 85</td>
-                                <td class="border border-slate-200 p-3 font-bold text-indigo-700">Pure Science</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-slate-200 p-3">English & Science ≥ 85, Maths ≥ 70</td>
-                                <td class="border border-slate-200 p-3 font-bold text-emerald-700">Bio Science</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-slate-200 p-3">All ≥ 60</td>
-                                <td class="border border-slate-200 p-3 font-bold text-amber-700">Commerce</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-slate-200 p-3">Otherwise</td>
-                                <td class="border border-slate-200 p-3 font-bold text-rose-700">Arts</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+      /* ---------------- Rewrite Questions ---------------- */
+      {group:"Rewrite Questions", star:true,
+       q:`Rewrite using if...else.<pre>String result=(marks&gt;=35)?"Pass":"Fail";</pre>`,
+       body:`<pre>if(marks>=35)
+{
+    result="Pass";
+}
+else
+{
+    result="Fail";
+}</pre>`},
+      {group:"Rewrite Questions", star:true,
+       q:`Rewrite using if...else.<pre>String ans=(age&gt;=18)?"Eligible":"Not Eligible";</pre>`,
+       body:`<pre>if(age>=18)
+{
+    ans="Eligible";
+}
+else
+{
+    ans="Not Eligible";
+}</pre>`},
+      {group:"Rewrite Questions", star:true,
+       q:`Rewrite the mathematical expression into a Java expression: x&sup2; + 2xy + y&sup2;`,
+       body:`<pre>x*x + 2*x*y + y*y</pre>`},
+      {group:"Rewrite Questions", star:true,
+       q:`Rewrite the mathematical expression into Java: (a+b) / 2`,
+       body:`<pre>(a+b)/2</pre>`},
+      {group:"Rewrite Questions", star:true,
+       q:`Rewrite the mathematical expression into Java: &radic;(x+y)`,
+       body:`<pre>Math.sqrt(x+y)</pre>`},
+    ],
+    practice: [
+      {q:"Predict the output of programs using Math methods."},
+      {q:"Evaluate expressions using pre- and post-increment/decrement operators."},
+      {q:"Correct syntax errors in Java code."},
+      {q:"Rewrite ternary operators using if...else."},
+      {q:"Convert mathematical expressions into Java expressions."},
+    ],
+    tips: `<p><b>Questions that appear almost every year in school FA-1 papers</b></p>
+           <p>✅ Predict the output using:</p>
+           <ul><li><code>Math.max()</code></li><li><code>Math.min()</code></li><li><code>Math.abs()</code></li><li><code>Math.sqrt()</code></li><li><code>Math.pow()</code></li><li><code>Math.floor()</code></li><li><code>Math.ceil()</code></li></ul>
+           <p>✅ Evaluate expressions involving:</p>
+           <ul><li><code>++x</code></li><li><code>x++</code></li><li><code>--x</code></li><li><code>x--</code></li><li><code>+=</code></li><li><code>-=</code></li><li><code>*=</code></li><li><code>/=</code></li><li><code>%=</code></li></ul>
+           <p>✅ Find errors such as:</p>
+           <ul><li>Missing semicolon</li><li>Incorrect capitalization (Scanner, System)</li><li>Wrong method names (printlin, square)</li><li>Incorrect case syntax</li><li>Missing braces or punctuation</li></ul>`
+  },
+  {
+    label: "Part 5",
+    programs: [
+      { group: "SECTION A – Programs Based on Arithmetic Operators", star: true, q: "Write a Java program to accept the <b>length</b> and <b>breadth</b> of a rectangle and display:<ul><li>Area</li><li>Perimeter</li></ul>" },
+      { group: "SECTION A – Programs Based on Arithmetic Operators", star: true, q: "Write a Java program to accept the <b>radius</b> of a circle and calculate:<ul><li>Area</li><li>Circumference</li></ul><p>(Take π = 3.14)</p>" },
+      { group: "SECTION A – Programs Based on Arithmetic Operators", star: true, q: "Write a Java program to accept the <b>principal</b>, <b>rate of interest</b> and <b>time</b>, then calculate the <b>Simple Interest</b>." },
+      { group: "SECTION A – Programs Based on Arithmetic Operators", star: true, q: "Write a Java program to accept the <b>printed price</b> of a mobile phone.<p>A shopkeeper offers a <b>10% discount</b> and charges <b>9% GST</b> on the discounted price.</p><p>Display the final amount payable.</p>" },
+      { group: "SECTION A – Programs Based on Arithmetic Operators", star: true, q: "A bookstore offers a <b>15% discount</b> on books and charges <b>5% GST</b> on the discounted amount.<p>Accept the printed price and display:<ul><li>Discount</li><li>GST</li><li>Net Amount</li></ul></p>" },
+      { group: "SECTION A – Programs Based on Arithmetic Operators", q: "Write a Java program to accept the <b>Basic Salary</b> of an employee.<p>Calculate:<ul><li>HRA = 20%</li><li>DA = 15%</li><li>Gross Salary</li></ul></p>" },
+      { group: "SECTION A – Programs Based on Arithmetic Operators", q: "Write a Java program to accept the <b>cost price</b> and <b>selling price</b> of an item.<p>Display the profit or loss amount.</p>" },
+      { group: "SECTION A – Programs Based on Arithmetic Operators", q: "Write a Java program to accept temperature in <b>Celsius</b> and convert it into <b>Fahrenheit</b>.<p>Formula:<br><code>F = (9 × C / 5) + 32</code></p>" },
+      { group: "SECTION A – Programs Based on Arithmetic Operators", q: "Write a Java program to convert the number of <b>days</b> into:<ul><li>Years</li><li>Months</li><li>Remaining Days</li></ul><p>Assume: 1 Year = 365 Days, 1 Month = 30 Days</p>" },
+      { group: "SECTION A – Programs Based on Arithmetic Operators", q: "Write a Java program to accept two numbers and display:<ul><li>Sum</li><li>Difference</li><li>Product</li><li>Quotient</li><li>Remainder</li></ul>" },
 
-        <!-- Final Revision Checklist -->
-        <section class="mt-16">
-            <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl p-8 md:p-10 shadow-md border-2 border-amber-200 relative overflow-hidden">
-                <div class="absolute -right-10 -bottom-10 opacity-10">
-                    <i data-lucide="target" class="w-64 h-64 text-amber-600"></i>
-                </div>
-                
-                <div class="relative z-10">
-                    <div class="flex items-center gap-3 mb-6">
-                        <i data-lucide="star" class="w-8 h-8 text-amber-500 fill-amber-500"></i>
-                        <h2 class="text-3xl font-extrabold text-amber-950">Final Revision Checklist</h2>
-                    </div>
-                    
-                    <p class="text-amber-800 text-lg mb-6 font-medium">These topics have the highest likelihood of appearing in an ICSE Class IX FA-1 exam. Make sure you can confidently write code for all of them!</p>
-                    
-                    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-8">
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Scanner input</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Data types</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Arithmetic, Relational & Logical ops</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Increment & Decrement ops</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Expression evaluation</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Math functions (max, min, abs, etc.)</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Output prediction</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Error correction</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700"><code class="bg-amber-100 px-1 rounded">if...else</code> & Nested <code class="bg-amber-100 px-1 rounded">if</code></span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700"><code class="bg-amber-100 px-1 rounded">switch</code> statement</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Discount, GST, Profit/Loss</span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" class="w-5 h-5 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer">
-                            <span class="text-amber-900 font-medium group-hover:text-amber-700">Rectangle, Circle, Temp conversions</span>
-                        </label>
-                    </div>
-                    
-                    <div class="mt-8 text-center">
-                        <p class="inline-block bg-white text-amber-700 font-bold px-6 py-3 rounded-xl shadow-sm border border-amber-200">
-                            Best of Luck for your Exams! 🚀
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+      { group: "SECTION B – Programs Based on Math Library Methods", star: true, q: "Write a Java program to accept <b>three numbers</b> and display:<ul><li>Greatest number using <code>Math.max()</code></li><li>Smallest number using <code>Math.min()</code></li></ul>" },
+      { group: "SECTION B – Programs Based on Math Library Methods", star: true, q: "Write a Java program to accept a number and display:<ul><li>Absolute value</li><li>Square root</li><li>Square</li><li>Cube</li></ul><p>using suitable Math methods.</p>" },
+      { group: "SECTION B – Programs Based on Math Library Methods", q: "Write a Java program to accept a decimal number and display:<ul><li>Floor value</li><li>Ceiling value</li></ul>" },
+      { group: "SECTION B – Programs Based on Math Library Methods", q: "Write a Java program to accept the sides of a right-angled triangle and calculate the hypotenuse using the formula:<br><code>&radic;(a&sup2; + b&sup2;)</code>" },
+      { group: "SECTION B – Programs Based on Math Library Methods", q: "Write a Java program to accept any two numbers and display the larger and smaller numbers using Math functions." },
 
-    </main>
+      { group: "SECTION C – Programs Based on if Statement", star: true, q: "Write a Java program to accept a number and check whether it is:<ul><li>Positive</li><li>Negative</li><li>Zero</li></ul>" },
+      { group: "SECTION C – Programs Based on if Statement", star: true, q: "Write a Java program to accept a number and check whether it is:<ul><li>Even</li><li>Odd</li></ul>" },
+      { group: "SECTION C – Programs Based on if Statement", star: true, q: "Write a Java program to accept the marks obtained in <b>English</b>, <b>Mathematics</b> and <b>Science</b>.<p>Calculate the average and display the grade according to the table.</p><table><tr><th>Average</th><th>Grade</th></tr><tr><td>90 & above</td><td>A+</td></tr><tr><td>75–89</td><td>A</td></tr><tr><td>60–74</td><td>B</td></tr><tr><td>40–59</td><td>C</td></tr><tr><td>Below 40</td><td>Fail</td></tr></table>" },
+      { group: "SECTION C – Programs Based on if Statement", star: true, q: "Write a Java program to accept the age of a person.<p>Display:<ul><li>Child (Below 13)</li><li>Teenager (13–19)</li><li>Adult (20–59)</li><li>Senior Citizen (60 and above)</li></ul></p>" },
+      { group: "SECTION C – Programs Based on if Statement", star: true, q: "A school allots streams according to the following criteria.<table><tr><th>Condition</th><th>Stream</th></tr><tr><td>English, Maths and Science ≥ 85</td><td>Pure Science</td></tr><tr><td>English & Science ≥ 85 and Maths ≥ 70</td><td>Bio Science</td></tr><tr><td>English, Maths and Science ≥ 60</td><td>Commerce</td></tr><tr><td>Otherwise</td><td>Arts</td></tr></table><p>Accept marks and display the stream allotted.</p>" },
+      { group: "SECTION C – Programs Based on if Statement", q: "Write a Java program to accept a student's percentage.<p>Display:<ul><li>Distinction</li><li>First Class</li><li>Second Class</li><li>Pass</li><li>Fail</li></ul>using suitable conditions.</p>" },
+      { group: "SECTION C – Programs Based on if Statement", q: "Write a Java program to accept the purchase amount.<p>If the purchase amount is ₹5000 or more, allow a 15% discount. Otherwise allow a 5% discount.</p><p>Display the final bill.</p>" },
+      { group: "SECTION C – Programs Based on if Statement", q: "Write a Java program to accept the electricity units consumed and calculate the bill as follows:<table><tr><th>Units</th><th>Rate</th></tr><tr><td>First 100</td><td>₹5 per unit</td></tr><tr><td>Next 100</td><td>₹7 per unit</td></tr><tr><td>Above 200</td><td>₹10 per unit</td></tr></table>" },
+      { group: "SECTION C – Programs Based on if Statement", q: "Write a Java program to accept a character and check whether it is a:<ul><li>Vowel</li><li>Consonant</li></ul>" },
+      { group: "SECTION C – Programs Based on if Statement", q: "Write a Java program to accept three numbers and display the greatest number using <code>if...else</code>." },
 
-    <footer class="bg-slate-900 text-slate-400 text-center py-8 text-sm mt-12 border-t-4 border-emerald-500">
-        <p>📚 ICSE Class IX Computer Applications – Study Materials</p>
-    </footer>
+      { group: "SECTION D – Programs Based on switch", star: true, q: "Write a menu-driven Java program to accept a number from <b>1 to 7</b> and display the corresponding weekday.<p>Display a suitable message for invalid input.</p>" },
+      { group: "SECTION D – Programs Based on switch", star: true, q: "Write a menu-driven Java program to accept a number from <b>1 to 12</b> and display the corresponding month name.<p>Display a suitable message for invalid input.</p>" },
+      { group: "SECTION D – Programs Based on switch", star: true, q: "Write a menu-driven calculator using switch.<p>Menu:<br><code>1 Addition</code><br><code>2 Subtraction</code><br><code>3 Multiplication</code><br><code>4 Division</code><br><code>5 Modulus</code></p><p>Accept two numbers and perform the selected operation.</p>" },
+      { group: "SECTION D – Programs Based on switch", q: "Write a Java program to accept a menu choice.<p><code>1 Square</code><br><code>2 Cube</code><br><code>3 Square Root</code><br><code>4 Absolute Value</code></p><p>Accept a number and perform the selected operation using Math methods.</p>" },
+      { group: "SECTION D – Programs Based on switch", q: "Write a menu-driven program to display:<p><code>1 Red</code><br><code>2 Green</code><br><code>3 Blue</code><br><code>4 Yellow</code></p><p>Display the selected colour name.</p>" },
 
-    <!-- Data Injection Script to keep HTML clean and manageable -->
-    <script>
-        // Utility to safely escape HTML entities in code snippets to prevent browser parsing errors
-        const escapeHTML = (str) => str.replace(/[&<>'"]/g, tag => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            "'": '&#39;',
-            '"': '&quot;'
-        }[tag] || tag));
+      { group: "SECTION E – Mixed ICSE Pattern Programs", star: true, q: "Write a Java program to accept the marks of five subjects.<p>Calculate:<ul><li>Total</li><li>Percentage</li></ul></p><p>Display: Pass or Fail (Assume passing marks are 35 in every subject.)</p>" },
+      { group: "SECTION E – Mixed ICSE Pattern Programs", star: true, q: "Write a Java program to accept the price of a laptop.<p>A customer gets a 12% Discount. After discount, GST of 18% is added.</p><p>Display the final amount payable.</p>" },
+      { group: "SECTION E – Mixed ICSE Pattern Programs", q: "Write a Java program to calculate the Body Mass Index (BMI).<p>Formula:<br><code>BMI = Weight / Height&sup2;</code></p><p>Display:<ul><li>Underweight</li><li>Normal</li><li>Overweight</li></ul></p>" },
+      { group: "SECTION E – Mixed ICSE Pattern Programs", q: "Write a Java program to calculate the total shopping bill.<p>Accept:<ul><li>Item Name</li><li>Quantity</li><li>Price per Item</li></ul></p><p>Display:<ul><li>Total Cost</li><li>Discount (if applicable)</li><li>Net Amount</li></ul></p>" },
+      { group: "SECTION E – Mixed ICSE Pattern Programs", q: "Write a Java program to calculate the library fine according to the following rules.<table><tr><th>Days Late</th><th>Fine</th></tr><tr><td>Up to 5</td><td>₹2 per day</td></tr><tr><td>6–10</td><td>₹4 per day</td></tr><tr><td>Above 10</td><td>₹10 per day</td></tr></table>" },
+      { group: "SECTION E – Mixed ICSE Pattern Programs", q: "Write a Java program to accept the fare of a railway ticket.<p>Apply discount according to age:<ul><li>Below 12 years → 50%</li><li>Above 60 years → 30%</li><li>Others → No discount</li></ul></p><p>Display the final fare.</p>" },
+      { group: "SECTION E – Mixed ICSE Pattern Programs", q: "Write a Java program to accept the monthly income of a person.<p>Display whether the person belongs to:<ul><li>Low Income Group</li><li>Middle Income Group</li><li>High Income Group</li></ul>(Choose suitable ranges.)</p>" },
+      { group: "SECTION E – Mixed ICSE Pattern Programs", q: "Write a Java program to accept the side of a square.<p>Display:<ul><li>Area</li><li>Perimeter</li></ul></p>" },
+      { group: "SECTION E – Mixed ICSE Pattern Programs", q: "Write a Java program to accept the dimensions of a room.<p>Find the cost of flooring at ₹150 per square metre.</p>" },
+      { group: "SECTION E – Mixed ICSE Pattern Programs", star: true, q: "Write a Java program to accept three numbers.<p>Display:<ul><li>Greatest number</li><li>Smallest number</li><li>Average</li></ul>using suitable methods and conditions.</p>" }
+    ],
+    tipsTitle: "Instructions & Final Checklist",
+    tips: `
+      <h3>📝 Instructions</h3>
+      <ul>
+        <li>Write complete Java programs using <b>BlueJ</b>.</li>
+        <li>Use the <b>Scanner</b> class wherever input is required.</li>
+        <li>Display meaningful messages.</li>
+        <li>Use proper indentation.</li>
+        <li>Show sample input and output wherever applicable.</li>
+      </ul>
+      <h3>⭐ Most Expected Programs for FA-1 (2026)</h3>
+      <p>These programs have a very high probability of appearing in school Formative Assessments:</p>
+      <ul>
+        <li>Rectangle – Area & Perimeter</li>
+        <li>Circle – Area & Circumference</li>
+        <li>Discount & GST</li>
+        <li>Salary Calculation</li>
+        <li>Profit or Loss</li>
+        <li>Temperature Conversion</li>
+        <li>Days to Years, Months and Days</li>
+        <li>Greatest & Smallest using <code>Math.max()</code> and <code>Math.min()</code></li>
+        <li>Even or Odd</li>
+        <li>Positive, Negative or Zero</li>
+        <li>Grade Calculator</li>
+        <li>Stream Allotment</li>
+        <li>Electricity Bill</li>
+        <li>Weekday using <code>switch</code></li>
+        <li>Month Name using <code>switch</code></li>
+        <li>Calculator using <code>switch</code></li>
+        <li>Vowel or Consonant</li>
+        <li>Library Fine</li>
+        <li>Shopping Bill</li>
+        <li>Ticket Fare</li>
+      </ul>
+      <h3>✅ Final FA-1 Preparation Checklist</h3>
+      <p>Before the exam, make sure you can confidently:</p>
+      <ul>
+        <li><b>✔</b> Import the Scanner class correctly.</li>
+        <li><b>✔</b> Create a Scanner object.</li>
+        <li><b>✔</b> Use <code>nextInt()</code>, <code>nextDouble()</code>, <code>next()</code> and <code>nextLine()</code>.</li>
+        <li><b>✔</b> Use all arithmetic, relational and logical operators.</li>
+        <li><b>✔</b> Evaluate expressions involving <code>++</code> and <code>--</code>.</li>
+        <li><b>✔</b> Use <code>Math.abs()</code>, <code>Math.max()</code>, <code>Math.min()</code>, <code>Math.sqrt()</code>, <code>Math.pow()</code>, <code>Math.floor()</code> and <code>Math.ceil()</code>.</li>
+        <li><b>✔</b> Write <code>if</code>, <code>if...else</code> and <code>switch</code> statements.</li>
+        <li><b>✔</b> Predict outputs and identify syntax errors.</li>
+        <li><b>✔</b> Solve real-life problems involving calculations, decisions and menu-driven programs.</li>
+      </ul>
+    `
+  },
+  {
+    label: "Part 6",
+    theory: [
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "What is Java?", body: "<p>Java is a <b>high-level, object-oriented and platform-independent programming language</b> developed by Sun Microsystems (now Oracle).</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Who developed Java?", body: "<p>Sun Microsystems.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Who owns Java now?", body: "<p>Oracle Corporation.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Expand JVM.", body: "<p>Java Virtual Machine.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Expand JDK.", body: "<p>Java Development Kit.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Expand JRE.", body: "<p>Java Runtime Environment.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "What is BlueJ?", body: "<p>BlueJ is an Integrated Development Environment (IDE) specially designed for learning Java.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "What is an IDE?", body: "<p>An IDE (Integrated Development Environment) is software used to write, compile, run and debug programs.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "What is a Class?", body: "<p>A Class is a blueprint or template used to create objects.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "What is an Object?", body: "<p>An Object is an instance of a class.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Which keyword is used to create an object?", body: "<pre>new</pre>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "What is a Variable?", body: "<p>A variable is a named memory location used to store data.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "What is a Constant?", body: "<p>A constant is a value that does not change during program execution.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Name the primitive data types studied in Class IX.", body: "<ul><li>int</li><li>double</li><li>char</li><li>boolean</li></ul>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Which package contains the Scanner class?", body: "<pre>java.util</pre>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Why is Scanner used?", body: "<p>Scanner is used to accept user input from the keyboard.</p>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Which method reads an integer?", body: "<pre>nextInt()</pre>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", q: "Which method reads a decimal number?", body: "<pre>nextDouble()</pre>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", q: "Which method reads one word?", body: "<pre>next()</pre>" },
+      { group: "SECTION A – Frequently Asked Viva Questions", star: true, q: "Which method reads an entire sentence?", body: "<pre>nextLine()</pre>" },
+      
+      { group: "SECTION B – Frequently Asked \"Why\" Questions", star: true, q: "Why is Java called platform independent?", body: "<p>Because Java programs can run on different operating systems using the Java Virtual Machine (JVM).</p>" },
+      { group: "SECTION B – Frequently Asked \"Why\" Questions", star: true, q: "Why do we use objects?", body: "<p>Objects allow us to access the data members and methods of a class.</p>" },
+      { group: "SECTION B – Frequently Asked \"Why\" Questions", star: true, q: "Why is the Scanner class imported?", body: "<p>Because it belongs to the <code>java.util</code> package and is not available by default.</p>" },
+      { group: "SECTION B – Frequently Asked \"Why\" Questions", star: true, q: "Why is the break statement used in switch?", body: "<p>To terminate the current case and prevent execution of the remaining cases.</p>" },
+      { group: "SECTION B – Frequently Asked \"Why\" Questions", star: true, q: "Why is the default case used?", body: "<p>To execute statements when none of the case values match.</p>" },
+      { group: "SECTION B – Frequently Asked \"Why\" Questions", star: true, q: "Why is Java case-sensitive?", body: "<p>Because uppercase and lowercase letters are treated as different characters.</p><div class=\"box example\"><b>Example</b><p><code>marks</code> and <code>Marks</code> are two different identifiers.</p></div>" },
+      { group: "SECTION B – Frequently Asked \"Why\" Questions", star: true, q: "Why should keywords not be used as identifiers?", body: "<p>Because keywords are reserved words with predefined meanings.</p>" },
+      { group: "SECTION B – Frequently Asked \"Why\" Questions", star: true, q: "Why should variables be declared before use?", body: "<p>Because Java must know the variable's data type before storing values.</p>" },
+      { group: "SECTION B – Frequently Asked \"Why\" Questions", star: true, q: "Why is Math class useful?", body: "<p>It provides predefined methods for mathematical calculations.</p>" },
+      { group: "SECTION B – Frequently Asked \"Why\" Questions", star: true, q: "Why are conditional statements used?", body: "<p>To make decisions based on a condition.</p>" },
+      
+      { group: "SECTION C – Remember the Syntax", star: true, q: "Scanner", body: "<pre>import java.util.*;\n\nScanner sc = new Scanner(System.in);</pre>" },
+      { group: "SECTION C – Remember the Syntax", star: true, q: "Reading an Integer", body: "<pre>int n = sc.nextInt();</pre>" },
+      { group: "SECTION C – Remember the Syntax", star: true, q: "Reading a Decimal Number", body: "<pre>double d = sc.nextDouble();</pre>" },
+      { group: "SECTION C – Remember the Syntax", star: true, q: "if Statement", body: "<pre>if(condition)\n{\n    statements;\n}</pre>" },
+      { group: "SECTION C – Remember the Syntax", star: true, q: "if...else Statement", body: "<pre>if(condition)\n{\n    statements;\n}\nelse\n{\n    statements;\n}</pre>" },
+      { group: "SECTION C – Remember the Syntax", star: true, q: "switch Statement", body: "<pre>switch(choice)\n{\ncase 1:\n    statements;\n    break;\n\ndefault:\n    statements;\n}</pre>" },
+      { group: "SECTION C – Remember the Syntax", star: true, q: "Math.max()", body: "<pre>Math.max(a,b);</pre>" },
+      { group: "SECTION C – Remember the Syntax", star: true, q: "Math.min()", body: "<pre>Math.min(a,b);</pre>" },
+      { group: "SECTION C – Remember the Syntax", star: true, q: "Math.sqrt()", body: "<pre>Math.sqrt(number);</pre>" },
+      { group: "SECTION C – Remember the Syntax", star: true, q: "Math.pow()", body: "<pre>Math.pow(base, power);</pre>" },
+      
+      { group: "SECTION D – Common Errors Students Make", star: true, q: "Writing <code>scanner sc</code> instead of <code>Scanner sc</code>", body: "<p><b>Correction</b></p><p>Java is case-sensitive.</p>" },
+      { group: "SECTION D – Common Errors Students Make", star: true, q: "Forgetting to import Scanner.", body: "<p><b>Correction</b></p><pre>import java.util.*;</pre>" },
+      { group: "SECTION D – Common Errors Students Make", star: true, q: "Forgetting the semicolon.", body: "<p><b>Correction</b></p><p>Every Java statement must end with a semicolon (<code>;</code>).</p>" },
+      { group: "SECTION D – Common Errors Students Make", star: true, q: "Using <code>=</code> instead of <code>==</code> inside conditions.", body: "<p><b>Remember</b></p><ul><li><code>=</code> → Assignment</li><li><code>==</code> → Comparison</li></ul>" },
+      { group: "SECTION D – Common Errors Students Make", star: true, q: "Writing <code>case1:</code> instead of <code>case 1:</code>", body: "<p><b>Correction</b></p><p>Leave a space between <code>case</code> and the value.</p>" },
+      { group: "SECTION D – Common Errors Students Make", star: true, q: "Using <code>Math.square()</code>", body: "<p><b>Correction</b></p><p>Java does not have a <code>square()</code> method.</p><p>Use</p><pre>Math.pow(number,2)</pre>" },
+      { group: "SECTION D – Common Errors Students Make", star: true, q: "Writing <code>System.out.printlin();</code>", body: "<p><b>Correction</b></p><pre>System.out.println();</pre>" },
+      { group: "SECTION D – Common Errors Students Make", star: true, q: "Using <code>nextInteger()</code>", body: "<p><b>Correction</b></p><pre>nextInt()</pre>" },
+      { group: "SECTION D – Common Errors Students Make", star: true, q: "Writing <code>Import</code> instead of <code>import</code>", body: "<p><b>Correction</b></p><p>Java keywords must be in lowercase.</p>" },
+      { group: "SECTION D – Common Errors Students Make", star: true, q: "Writing <code>Boolean</code> instead of <code>boolean</code>", body: "<p><b>Correction</b></p><p><code>boolean</code> is the primitive data type (starts with a lowercase b).</p>" }
+    ],
+    practice: [
+      { q: "Define Class." },
+      { q: "Define Object." },
+      { q: "Explain Encapsulation with an example." },
+      { q: "Explain Data Abstraction with an example." },
+      { q: "State the four principles of OOP." },
+      { q: "Differentiate between Class and Object." },
+      { q: "Differentiate between Procedural Programming and OOP." },
+      { q: "What are Java Tokens?" },
+      { q: "What are Identifiers?" },
+      { q: "State five rules for naming identifiers." },
+      { q: "What are Keywords?" },
+      { q: "What are Literals?" },
+      { q: "What is the Scanner class?" },
+      { q: "Explain the Scanner object creation statement." },
+      { q: "Explain Math.abs() with an example." },
+      { q: "Explain Math.max() with an example." },
+      { q: "Explain Math.sqrt() with an example." },
+      { q: "Explain Math.pow() with an example." },
+      { q: "Differentiate between = and ==." },
+      { q: "Differentiate between ++x and x++." },
+      { q: "Predict the output of Java statements using Math functions." },
+      { q: "Find syntax errors in Java programs." },
+      { q: "Rewrite a ternary operator using if...else." },
+      { q: "Write Java expressions for mathematical formulae." },
+      { q: "Write programs based on if...else and switch." }
+    ],
+    tipsTitle: "Last-Minute Formula Sheet & Strategy",
+    tips: `
+      <h3>📐 SECTION E – Last-Minute Formula Sheet</h3>
+      <div class="box remember">
+        <b>Rectangle</b>
+        <p>Area = Length × Breadth</p>
+        <p>Perimeter = 2 × (Length + Breadth)</p>
+      </div>
+      <div class="box remember">
+        <b>Circle</b>
+        <p>Area = 3.14 × r × r</p>
+        <p>Circumference = 2 × 3.14 × r</p>
+      </div>
+      <div class="box remember">
+        <b>Simple Interest</b>
+        <p>SI = (P × R × T) / 100</p>
+      </div>
+      <div class="box remember">
+        <b>Temperature Conversion</b>
+        <p>F = (9 × C / 5) + 32</p>
+      </div>
+      <div class="box remember">
+        <b>Percentage & Average</b>
+        <p>Percentage = (Obtained Marks × 100) / Total Marks</p>
+        <p>Average = Sum of Numbers / Number of Values</p>
+      </div>
 
-        // Data sources
-        const mcqs = [
-            { q: "Which keyword is used to create an object?", options: ["object", "class", "new", "create"] },
-            { q: "Which package contains the Scanner class?", options: ["java.io", "java.math", "java.util", "java.lang"] },
-            { q: "Which method accepts an integer from the keyboard?", options: ["next()", "nextLine()", "nextInt()", "input()"] },
-            { q: "Which of the following is NOT a primitive data type?", options: ["int", "boolean", "String", "char"] },
-            { q: "Which data type stores decimal values?", options: ["int", "double", "char", "boolean"] },
-            { q: "Which operator gives the remainder?", options: ["/", "%", "*", "+"] },
-            { q: "Which operator is Logical AND?", options: ["&", "&&", "||", "!"] },
-            { q: "Which operator is Logical OR?", options: ["&&", "||", "%", "="] },
-            { q: "Which Math function returns the larger number?", options: ["Math.min()", "Math.max()", "Math.abs()", "Math.pow()"] },
-            { q: "Math.abs(-24) returns", options: ["-24", "24", "0", "Error"] },
-            { q: "Math.sqrt(225) returns", options: ["15", "25", "225", "14"] },
-            { q: "Which statement is used for multiple branching?", options: ["if", "switch", "while", "do"] },
-            { q: "Which keyword prevents fall-through in switch?", options: ["stop", "break", "end", "continue"] },
-            { q: "Which operator is used for assignment?", options: ["==", "=", "+=", "!="] },
-            { q: "The value of `10 % 3` is", options: ["3", "1", "0", "10"] },
-            { q: "Which of the following is a relational operator?", options: ["&&", "||", ">=", "%"] },
-            { q: "Which keyword begins a class definition?", options: ["public", "class", "object", "new"] },
-            { q: "Java is a ______ language.", options: ["Machine", "High-level", "Binary", "Assembly"] },
-            { q: "Which IDE is prescribed in ICSE schools?", options: ["Eclipse", "NetBeans", "BlueJ", "VS Code"] },
-            { q: "Java is ______ sensitive.", options: ["Number", "Case", "Error", "Operator"] },
-            { q: "Which operator has the highest precedence?", options: ["+", "*", "%", "="] },
-            { q: "Which method reads a decimal number?", options: ["nextDouble()", "nextInt()", "next()", "read()"] },
-            { q: "Which operator increments the value by 1?", options: ["--", "++", "+=", "=="] },
-            { q: "Math.floor(8.9) returns", options: ["9", "8", "8.9", "Error"] },
-            { q: "Math.ceil(8.2) returns", options: ["8", "9", "8.2", "Error"] }
-        ];
+      <h3>🎯 Final Exam Strategy</h3>
+      <p>Spend your last revision session on:</p>
+      <ul>
+        <li>✅ OOP definitions and principles</li>
+        <li>✅ Tokens, Keywords, Identifiers and Data Types</li>
+        <li>✅ Scanner syntax and input methods</li>
+        <li>✅ Operators and expression evaluation</li>
+        <li>✅ Math library methods</li>
+        <li>✅ Conditional statements (<code>if</code>, <code>if...else</code>, <code>switch</code>)</li>
+        <li>✅ Output prediction</li>
+        <li>✅ Error correction</li>
+        <li>✅ 8–10 programming questions (Rectangle, Circle, Discount & GST, Grade, Greatest/Smallest, Weekday, Month, Calculator)</li>
+      </ul>
+    `
+  }
+];
 
-        const definitions = [
-            "Java", "BlueJ", "Class", "Object", "Variable", "Identifier", "Data Type", "Primitive Data Type", 
-            "Scanner Class", "Package", "Operator", "Arithmetic Operator", "Relational Operator", "Logical Operator", 
-            "Assignment Operator", "Mathematical Library Function", "Conditional Statement", "Syntax Error", 
-            "Runtime Error", "Logical Error"
-        ];
+const SECTIONS = [
+  { key:"mcq",       title:"MCQs",            icon:"A" },
+  { key:"fillblank", title:"Fill in Blanks",  icon:"B" },
+  { key:"truefalse", title:"True / False",    icon:"C" },
+  { key:"bonus",     title:"Viva / Bonus",    icon:"★" },
+  { key:"theory",    title:"Theory Q&A",      icon:"T" },
+  { key:"practice",  title:"2-Mark Practice", icon:"P", countsInProgress:false },
+  { key:"programs",  title:"Programs",        icon:"&lt;/&gt;", countsInProgress:false }
+];
 
-        const shortAnswers = [
-            "Differentiate between Class and Object.", "Differentiate between int and double.", "Differentiate between = and ==.",
-            "Differentiate between if and switch.", "State four features of Java.", "Write four rules for naming identifiers.",
-            "Why is Scanner class used?", "What is the purpose of import statement?", "Explain Math.abs() with an example.",
-            "Explain Math.max() with an example.", "Explain Math.min().", "Explain Math.pow().", "Explain Math.sqrt().",
-            "What is operator precedence?", "What is type casting?", "Name four arithmetic operators.", "Name four relational operators.",
-            "What is the purpose of break in switch?", "Why is Java called platform independent?", "State the difference between compile-time error and runtime error."
-        ];
+let revealedCount = 0;
+let totalCount = 0;
 
-        const predictOutputs = [
-            `System.out.println("Welcome");\nSystem.out.print("Class ");\nSystem.out.print("IX");`,
-            `System.out.println(Math.max(24,56));`,
-            `System.out.println(Math.min(45,12));`,
-            `System.out.println(Math.abs(-80));`,
-            `System.out.println(Math.sqrt(144));`,
-            `System.out.println(Math.pow(3,2));`,
-            `int x=5;\nSystem.out.println(++x);`,
-            `int x=5;\nSystem.out.println(x++);\nSystem.out.println(x);`,
-            `int a=10;\nSystem.out.println(a+=5);`,
-            `System.out.println(18%5);`,
-            `System.out.println(Math.ceil(4.2));`,
-            `System.out.println(Math.floor(4.8));`,
-            `System.out.println(Math.max(-5,-2));`,
-            `System.out.println(Math.min(-7,9));`,
-            `int a=3,b=4;\nSystem.out.println(a+b);`,
-            `System.out.println(10/3);`,
-            `System.out.println(10.0/3);`,
-            `boolean x=true;\nSystem.out.println(x);`,
-            `System.out.println(Math.abs(-99));`,
-            `System.out.println(Math.pow(2,5));`
-        ];
+function letter(i){ return "abcd"[i]; }
 
-        const evaluateExpressions = [
-            `int x=5;\nx++;`, `int x=5;\n++x;`, `int x=8,y=3;\nint z=x++ + ++y;`, `int a=6,b=2;\nint c=++a + b--;`, 
-            `int x=20;\nx/=5;`, `int x=15;\nx%=4;`, `int x=10;\nx+=7;`, `int x=25;\nx-=9;`, `int x=6;\nx*=8;`, 
-            `int x=4,y=5;\nint z=++x + y++;`, `int a=10;\nint b=++a;`, `int a=10;\nint b=a++;`, `int a=12,b=5;\nint c=a%b;`, 
-            `int x=9;\nx--;`, `int x=7;\n--x;`, `int a=4,b=6;\nint c=++a + ++b;`, `int a=9,b=2;\nint c=a++ - --b;`, 
-            `int x=3;\nx*=x;`, `int x=100;\nx/=10;`, `int x=18;\nx%=7;`
-        ];
+function buildOptionHtml(opt){
+  return opt.startsWith("<pre>") ? opt : opt;
+}
 
-        const findErrors = [
-            `System.out.println("Hello")`, `Scanner sc=new Scanner(System.in)`, `int a="20";`, `double x=12.5`, 
-            `scanner sc=new scanner(System.in);`, `Math.square(16);`, `if(a>b)\nSystem.out.println("Greater")\nelse\nSystem.out.println("Smaller");`, 
-            `switch(choice)\n{\ncase1:\nSystem.out.println("One");\n}`, `public class Demo\n{\npublic static void main(String args)`, 
-            `System.out.printlin("Java");`, `Int a=10;`, `char ch="A";`, `boolean x="true";`, `double p=Math.Sqrt(49);`, 
-            `Math.Max(20,30);`, `if(a>b);\nSystem.out.println(a);`, `case 1\nSystem.out.println("One");`, `import java.utility.*;`, 
-            `nextInteger();`, `double x=5/2;`
-        ];
+function makeMcqCard(item, gid){
+  const card = document.createElement("div");
+  card.className = "card" + (item.star ? " star" : "");
+  const optsHtml = item.options.map((opt,i)=>{
+    const isCorrect = i === item.correct;
+    return `<li class="opt" data-correct="${isCorrect}"><b>${letter(i)})</b> ${buildOptionHtml(opt)}</li>`;
+  }).join("");
 
-        const programs = [
-            "Area and Perimeter of a Rectangle", "Area and Circumference of a Circle", "Simple Interest Calculator",
-            "Profit or Loss Calculator", "Discount + GST Calculator", "Salary Calculator (Basic, HRA, DA, Gross Salary)",
-            "Electricity Bill Calculation", "Average of Three Subjects and Grade", "Largest and Smallest of Three Numbers using Math.max() and Math.min()",
-            "Convert Days into Years, Months and Days", "Convert Temperature (Celsius to Fahrenheit)", "Convert Rupees into Dollars (using a fixed exchange rate)",
-            "Check whether a number is Even or Odd", "Check whether a number is Positive, Negative or Zero", "Find the Greatest among Three Numbers using if...else",
-            "Display the Day of the Week using switch", "Display the Month Name using switch", "Create a Simple Calculator using switch (+, -, ×, ÷)",
-            "Accept a Character and check whether it is a Vowel or Consonant"
-            // Q20 is handled statically in HTML due to table
-        ];
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="qid">${gid}</span>
+      <div class="qtext">${item.q} ${item.star ? '<span class="star-badge">⭐</span>' : ''}</div>
+    </div>
+    <ul class="options">${optsHtml}</ul>
+    <button class="reveal-btn">
+      <span><span class="lbl-closed">Reveal answer</span><span class="lbl-open">Hide answer</span></span>
+      <span class="chev">⌄</span>
+    </button>
+    <div class="answer"><div class="answer-inner">
+      <div class="answer-line true"><span class="tick">✅</span><span>${letter(item.correct)}) ${item.options[item.correct].replace(/<\/?pre>/g,"")}</span></div>
+    </div></div>
+  `;
+  wireReveal(card, gid);
+  return card;
+}
 
-        // Format code inline markers safely
-        const formatInlineCode = (text) => text.replace(/`([^`]+)`/g, (match, p1) => `<code class="bg-slate-200 text-rose-600 px-1 rounded">${escapeHTML(p1)}</code>`);
+function makeFillCard(item, gid){
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="qid">${gid}</span>
+      <div class="qtext">${item.q}</div>
+    </div>
+    <button class="reveal-btn">
+      <span><span class="lbl-closed">Reveal answer</span><span class="lbl-open">Hide answer</span></span>
+      <span class="chev">⌄</span>
+    </button>
+    <div class="answer"><div class="answer-inner">
+      <div class="answer-line true"><span class="tick">✅</span><span class="answer-mono">${item.a}</span></div>
+    </div></div>
+  `;
+  wireReveal(card, gid);
+  return card;
+}
 
-        // Render Functions
-        document.getElementById('mcq-container').innerHTML = mcqs.map((q, i) => `
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <p class="font-bold text-slate-800 mb-3 flex items-start gap-2">
-                    <span class="bg-blue-100 text-blue-700 w-6 h-6 flex items-center justify-center rounded-full text-xs shrink-0 mt-0.5">${i+1}</span>
-                    <span>${formatInlineCode(q.q)}</span>
-                </p>
-                <ul class="space-y-2 text-sm text-slate-600 pl-8 list-[lower-alpha]">
-                    ${q.options.map(opt => `<li><span class="bg-slate-50 px-2 py-1 rounded border border-slate-100 block">${escapeHTML(opt)}</span></li>`).join('')}
-                </ul>
-            </div>
-        `).join('');
+function makeTfCard(item, gid){
+  const card = document.createElement("div");
+  card.className = "card";
+  const chip = item.a ? '<span class="tf-chip true">TRUE</span>' : '<span class="tf-chip false">FALSE</span>';
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="qid">${gid}</span>
+      <div class="qtext">${item.q}</div>
+    </div>
+    <button class="reveal-btn">
+      <span><span class="lbl-closed">Reveal answer</span><span class="lbl-open">Hide answer</span></span>
+      <span class="chev">⌄</span>
+    </button>
+    <div class="answer"><div class="answer-inner">
+      <div class="answer-line ${item.a ? 'true':'false'}">
+        <span class="tick">${item.a ? '✅' : '❌'}</span><span>${item.a ? 'True' : 'False'}</span>${chip}
+      </div>
+      ${item.ex ? `<div class="explain"><b>Explanation:</b> ${item.ex}</div>` : ''}
+    </div></div>
+  `;
+  wireReveal(card, gid);
+  return card;
+}
 
-        document.getElementById('definitions-container').innerHTML = definitions.map(def => `
-            <span class="bg-purple-50 border border-purple-200 text-purple-800 px-4 py-2 rounded-xl font-medium shadow-sm flex items-center gap-2">
-                <i data-lucide="hash" class="w-4 h-4 opacity-50"></i> ${escapeHTML(def)}
-            </span>
-        `).join('');
+function makeTheoryCard(item, gid){
+  const card = document.createElement("div");
+  card.className = "card" + (item.star ? " star" : "");
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="qid">Q${gid}</span>
+      <div class="qtext">${item.q} ${item.star ? '<span class="star-badge">⭐</span>' : ''}</div>
+    </div>
+    <button class="reveal-btn">
+      <span><span class="lbl-closed">Reveal answer</span><span class="lbl-open">Hide answer</span></span>
+      <span class="chev">⌄</span>
+    </button>
+    <div class="answer"><div class="answer-inner theory-body">
+      ${item.body}
+    </div></div>
+  `;
+  wireReveal(card, gid);
+  return card;
+}
 
-        document.getElementById('saq-container').innerHTML = shortAnswers.map((saq, i) => `
-            <li class="flex gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 hover:bg-white transition-colors">
-                <span class="text-amber-500 font-bold shrink-0">Q${i+1}.</span>
-                <span>${formatInlineCode(saq)}</span>
-            </li>
-        `).join('');
+function makePracticeCard(item, gid){
+  const card = document.createElement("div");
+  card.className = "practice-card";
+  card.innerHTML = `
+    <span class="practice-num">Q${gid}</span>
+    <span class="practice-q">${item.q}</span>
+  `;
+  return card;
+}
 
-        const renderCodeBlock = (containerId, arr, themeColor, icon) => {
-            document.getElementById(containerId).innerHTML = arr.map((code, i) => `
-                <div class="bg-[#1e1e2e] p-4 rounded-2xl shadow-sm border border-slate-700 relative group overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-${themeColor}-500 opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                    <span class="text-${themeColor}-400 text-xs font-bold mb-3 flex items-center gap-1">
-                        <i data-lucide="${icon}" class="w-3 h-3"></i> Q${i+1}
-                    </span>
-                    <pre class="text-sm font-mono text-slate-300 overflow-x-auto pb-2"><code>${escapeHTML(code)}</code></pre>
-                </div>
-            `).join('');
-        };
+function makeProgramCard(item, gid){
+  const card = document.createElement("div");
+  card.className = "program-card" + (item.star ? " star" : "");
+  card.innerHTML = `
+    <span class="practice-num">Q${gid}</span>
+    <div class="program-q">${item.q} ${item.star ? '<span class="star-badge">⭐</span>' : ''}</div>
+  `;
+  return card;
+}
 
-        renderCodeBlock('predict-container', predictOutputs, 'emerald', 'terminal-square');
-        renderCodeBlock('evaluate-container', evaluateExpressions, 'rose', 'calculator');
-        renderCodeBlock('errors-container', findErrors, 'red', 'bug');
+function wireReveal(card, gid){
+  const btn = card.querySelector(".reveal-btn");
+  const ans = card.querySelector(".answer");
+  let seen = false;
+  btn.addEventListener("click", ()=>{
+    const opening = !ans.classList.contains("open");
+    ans.classList.toggle("open");
+    btn.classList.toggle("open");
+    if(opening){
+      const opts = card.querySelectorAll(".opt");
+      opts.forEach(o=>{ if(o.dataset.correct === "true") o.classList.add("correct"); });
+      if(!seen){ seen = true; revealedCount++; updateProgress(); }
+    }
+  });
+}
 
-        document.getElementById('programs-container').innerHTML = programs.map((prog, i) => `
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4 hover:border-indigo-300 transition-colors">
-                <div class="bg-indigo-50 text-indigo-600 w-10 h-10 flex items-center justify-center rounded-xl shrink-0 font-bold">
-                    ${i+1}
-                </div>
-                <p class="text-slate-700 font-medium pt-2">${escapeHTML(prog)}</p>
-            </div>
-        `).join('');
+function buildBonusCard(item, gid){
+  const card = document.createElement("div");
+  card.className = "bonus-card";
+  card.innerHTML = `
+    <div class="bonus-top">
+      <div>
+        <div class="bonus-num">Q${gid}</div>
+        <div class="bonus-q">${item.q}</div>
+        <div class="bonus-hint">tap to reveal</div>
+      </div>
+    </div>
+    <div class="bonus-a"><code>${item.a}</code></div>
+  `;
+  let seen = false;
+  card.addEventListener("click", ()=>{
+    const opening = !card.classList.contains("open");
+    card.classList.toggle("open");
+    if(opening && !seen){ seen = true; revealedCount++; updateProgress(); }
+  });
+  return card;
+}
 
-        // Initialize Icons
-        lucide.createIcons();
-    </script>
+function updateProgress(){
+  document.getElementById("compileCount").textContent = revealedCount;
+  document.getElementById("compileTotal").textContent = totalCount;
+  const pct = totalCount ? Math.round((revealedCount/totalCount)*100) : 0;
+  document.getElementById("trackFill").style.width = pct + "%";
+  const msg = document.getElementById("compileMsg");
+  if(pct === 0) msg.textContent = "Ready to compile...";
+  else if(pct < 30) msg.textContent = "Warming up the JVM...";
+  else if(pct < 70) msg.textContent = "Compiling nicely, keep going...";
+  else if(pct < 100) msg.textContent = "Almost there, no errors found...";
+  else msg.textContent = "✅ Build Successful — full revision complete!";
+}
+
+function renderAll(){
+  const tabBar = document.getElementById("tabBar");
+  const panelWrap = document.getElementById("panelWrap");
+
+  SECTIONS.forEach((sec, si)=>{
+    let sectionTotal = 0;
+    PARTS.forEach(p=> sectionTotal += (p[sec.key] || []).length);
+    if(sec.countsInProgress !== false) totalCount += sectionTotal;
+
+    const tab = document.createElement("div");
+    tab.className = "tab" + (si === 0 ? " active" : "");
+    tab.dataset.target = sec.key;
+    tab.innerHTML = `${sec.icon} ${sec.title} <span class="n">${sectionTotal}</span>`;
+    tab.addEventListener("click", ()=>{
+      document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+      document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById("panel-"+sec.key).classList.add("active");
+    });
+    tabBar.appendChild(tab);
+
+    const panel = document.createElement("div");
+    panel.className = "panel" + (si === 0 ? " active" : "");
+    panel.id = "panel-"+sec.key;
+
+    if(sec.key === "practice"){
+      const note = document.createElement("div");
+      note.className = "practice-note";
+      note.textContent = "These are recall-practice prompts — answers aren't provided; use them to test yourself against the Theory Q&A above.";
+      panel.appendChild(note);
+    } else if (sec.key === "programs"){
+      const note = document.createElement("div");
+      note.className = "practice-note";
+      note.textContent = "Write complete Java programs using BlueJ. Ensure proper indentation and meaningful messages.";
+      panel.appendChild(note);
+    }
+
+    let gCounter = 0;
+    PARTS.forEach(part=>{
+      const items = part[sec.key] || [];
+      if(!items.length) return;
+      const label = document.createElement("div");
+      label.className = "part-label";
+      label.textContent = part.label;
+      panel.appendChild(label);
+
+      if(part.tips && (sec.key === "theory" || sec.key === "programs")){
+        const banner = document.createElement("div");
+        banner.className = "tips-banner";
+        const title = part.tipsTitle || `⭐ Exam Tips — ${part.label}`;
+        banner.innerHTML = `<h3>${title}</h3>${part.tips}`;
+        panel.appendChild(banner);
+      }
+
+      if(sec.key === "bonus"){
+        const grid = document.createElement("div");
+        grid.className = "bonus-grid";
+        items.forEach(item=>{
+          gCounter++;
+          grid.appendChild(buildBonusCard(item, gCounter));
+        });
+        panel.appendChild(grid);
+      } else {
+        let currentGroup = null;
+        items.forEach(item=>{
+          gCounter++;
+          if((sec.key === "theory" || sec.key === "programs") && item.group && item.group !== currentGroup){
+            currentGroup = item.group;
+            const gLabel = document.createElement("div");
+            gLabel.className = "group-label";
+            gLabel.textContent = currentGroup;
+            panel.appendChild(gLabel);
+          }
+          let cardEl;
+          if(sec.key === "mcq") cardEl = makeMcqCard(item, gCounter);
+          else if(sec.key === "fillblank") cardEl = makeFillCard(item, gCounter);
+          else if(sec.key === "truefalse") cardEl = makeTfCard(item, gCounter);
+          else if(sec.key === "theory") cardEl = makeTheoryCard(item, gCounter);
+          else if(sec.key === "programs") cardEl = makeProgramCard(item, gCounter);
+          else cardEl = makePracticeCard(item, gCounter);
+          panel.appendChild(cardEl);
+        });
+      }
+    });
+
+    panelWrap.appendChild(panel);
+  });
+
+  document.getElementById("compileTotal").textContent = totalCount;
+  document.getElementById("footerCount").textContent = `${totalCount} questions loaded across ${PARTS.length} part${PARTS.length>1?'s':''}`;
+}
+
+renderAll();
+</script>
 </body>
 </html>
